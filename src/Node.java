@@ -66,7 +66,9 @@ public class Node extends JComponent{
 		g2.drawString(name, x+15, y+35);
 	}
 	
-
+	public int getLoc(){
+		return loc;
+	}
 	public String toString(){
 		String s = "Node "+name;
 		s += " " + inEdges.size() + " in edges and " + outEdges.size() + " out edges.";

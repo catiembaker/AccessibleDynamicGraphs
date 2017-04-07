@@ -18,7 +18,10 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.Voice;
 import javax.swing.*;
-
+/*
+ * Controls the visual display, the self-voicing and keyboard interactions
+ * with the graph
+ */
 public class Display extends JFrame implements KeyListener{
 	public ArrayList<Graph> graphs;
 	public ArrayList<Edge> currEdges;
@@ -26,6 +29,7 @@ public class Display extends JFrame implements KeyListener{
 	public boolean onNode;
 	public Node currNode;
 	public int currGr;
+	public boolean dynamic;
 
 	SynthesizerModeDesc desc;
 	Synthesizer synthesizer;
@@ -86,7 +90,7 @@ public class Display extends JFrame implements KeyListener{
 				graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
 				currEdge = (currEdge-1+currEdges.size())%currEdges.size();
 				graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
-				String s = currEdges.get(currEdge).toString() + " " + (currEdge+1) + " of "+currEdges.size();
+				String s = edgeInfo();
 				System.out.println(s);
 				try {
 					doSpeak(s);
@@ -103,6 +107,62 @@ public class Display extends JFrame implements KeyListener{
 			else if(onNode && e.isShiftDown()){
 				System.out.println("Go to past!");
 				//TODO Implement this 
+				//new interaction which places on node in same loc in past
+				if(dynamic){
+					//Move to the node in the past graph
+					if(currGr != 0 && graphs.get(currGr-1).map.get(currNode.getLoc())!=null){
+						currNode = graphs.get(currGr-1).map.get(currNode.getLoc());
+						currGr--;
+						String s = "Graph "+(currGr+1)+" of "+graphs.size();
+						s += " Current node "+currNode.toString();
+						System.out.println(s);
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+					//There is no node in the past graph
+					else if(currGr != 0){
+						String s = "No node at current location in past graph";
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+					//There is no past graph
+					else{
+						String s = "No past graph";
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+				}
+				//old interaction which places at top?
+				else{
+					
+				}
 			}
 		}
 		if(e.getKeyCode() == KeyEvent.VK_KP_RIGHT || e.getKeyCode() == KeyEvent.VK_RIGHT){
@@ -110,7 +170,7 @@ public class Display extends JFrame implements KeyListener{
 				graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
 				currEdge = (currEdge+1)%currEdges.size();
 				graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
-				String s = currEdges.get(currEdge).toString() + " " + (currEdge+1) + " of "+currEdges.size();
+				String s = edgeInfo();
 				System.out.println(s);
 				try {
 					doSpeak(s);
@@ -126,7 +186,63 @@ public class Display extends JFrame implements KeyListener{
 			}
 			else if(onNode && e.isShiftDown()){
 				System.out.println("Go to future");
+				//new interaction which places on node in same loc in future
+				if(dynamic){
+					//Move to the node in the future graph
+					if(currGr != graphs.size()-1 && graphs.get(currGr+1).map.get(currNode.getLoc())!=null){
+						currNode = graphs.get(currGr+1).map.get(currNode.getLoc());
+						currGr++;
+						String s = "Graph "+(currGr+1)+" of "+graphs.size();
+						s += " Current node "+currNode.toString();
+						System.out.println(s);
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+					//There is no node in the past graph
+					else if(currGr != graphs.size()-1){
+						String s = "No node at current location in future graph";
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+					//There is no past graph
+					else{
+						String s = "No future graph";
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+				}
 				// TODO Implement this
+				//old interaction which places at top?
+				else{
+					
+				}
 			}
 		}
 		if(e.getKeyCode() == KeyEvent.VK_KP_UP || e.getKeyCode() == KeyEvent.VK_UP){
@@ -135,7 +251,7 @@ public class Display extends JFrame implements KeyListener{
 				currNode.setSel(false);
 				currEdge = 0;
 				graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
-				String s = currEdges.get(currEdge).toString() + " " + (currEdge+1) + " of "+currEdges.size();
+				String s = edgeInfo();
 				System.out.println(s);
 				try {
 					doSpeak(s);
@@ -175,7 +291,7 @@ public class Display extends JFrame implements KeyListener{
 				currEdges = currNode.getOutEdges();
 				currEdge = 0;
 				graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
-				String s = currEdges.get(currEdge).toString() + " " + (currEdge+1) + " of "+currEdges.size();
+				String s = edgeInfo();
 				System.out.println(s);
 				try {
 					doSpeak(s);
@@ -211,11 +327,56 @@ public class Display extends JFrame implements KeyListener{
 		}
 		if(e.getKeyCode() == KeyEvent.VK_R){
 			//Repeat current info
+			String s;
+			if(onNode){
+				s = currNode.toString();
+			}
+			else{
+				s = edgeInfo();
+			}
+			s += " Graph "+(currGr+1)+" of "+graphs.size();
+			try {
+				doSpeak(s);
+			} catch (EngineException e1) {
+				e1.printStackTrace();
+			} catch (AudioException e1) {
+				e1.printStackTrace();
+			} catch (IllegalArgumentException e1) {
+				e1.printStackTrace();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 		}
 		if(e.getKeyCode() == KeyEvent.VK_S){
 			//Graph Summary
+			String s = "Graph "+(currGr+1)+" of "+graphs.size();
+			s += graphs.get(currGr).nodes.size() +" Nodes and " + graphs.get(currGr).edges.size() + " Edges";
+			if(onNode){
+				s += " Current "+currNode.toString();
+			}
+			else{
+				s += " Current "+edgeInfo();
+			}
+			try {
+				doSpeak(s);
+			} catch (EngineException e1) {
+				e1.printStackTrace();
+			} catch (AudioException e1) {
+				e1.printStackTrace();
+			} catch (IllegalArgumentException e1) {
+				e1.printStackTrace();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 		}
 		repaint();
+	}
+	/*
+	 * Returns string w/ edge name and location in edge list (index start at 1)
+	 */
+	public String edgeInfo(){
+		String s = currEdges.get(currEdge).toString() + " " + (currEdge+1) + " of "+currEdges.size();
+		return s;
 	}
 	public void init(String voiceName) 
 			throws EngineException, AudioException, EngineStateError, 
