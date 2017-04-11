@@ -27,7 +27,6 @@ public class Display extends JFrame implements KeyListener{
 	public ArrayList<Edge> currEdges;
 	public int currEdge;
 	public boolean onNode;
-	public Node currNode;
 	public int currGr;
 	public boolean dynamic;
 
@@ -45,20 +44,24 @@ public class Display extends JFrame implements KeyListener{
 	}
 
 	public void paint(Graphics g){
-//		System.out.println("Display");
-		g.setColor(Color.WHITE);
-		g.drawRect(0, 0, 1000, 1000);
+////		System.out.println("Display");
+//		g.setColor(Color.WHITE);
+//		g.drawRect(0, 0, 1000, 1000);
+//		if(graphs.size()>0){
+//			for(int i = 0; i<graphs.get(currGr).nodes.size(); i++){
+////				System.out.print("Drawing ");
+//				graphs.get(currGr).nodes.get(i).paintComponent(g);
+//			}
+//			for(int i = 0; i<graphs.get(currGr).edges.size(); i++){
+////				System.out.print("Drawing ");
+//				graphs.get(currGr).edges.get(i).paintComponent(g);
+//			}
+//		}
 		if(graphs.size()>0){
-			for(int i = 0; i<graphs.get(currGr).nodes.size(); i++){
-//				System.out.print("Drawing ");
-				graphs.get(currGr).nodes.get(i).paintComponent(g);
-			}
-			for(int i = 0; i<graphs.get(currGr).edges.size(); i++){
-//				System.out.print("Drawing ");
-				graphs.get(currGr).edges.get(i).paintComponent(g);
-			}
+			graphs.get(currGr).paint(g);
 		}
 
+		
 	}
 
 
@@ -77,8 +80,8 @@ public class Display extends JFrame implements KeyListener{
 		currEdge = 0;
 		onNode = true;
 		currGr = 0;
-		currNode = graphs.get(currGr).nodes.get(0);
-		currNode.setSel(true);
+		graphs.get(currGr).setCurrNode(graphs.get(currGr).nodes.get(0));
+		graphs.get(currGr).getCurrNode().setSel(true);
 		onNode = true;
 	}
 
@@ -110,11 +113,12 @@ public class Display extends JFrame implements KeyListener{
 				//new interaction which places on node in same loc in past
 				if(dynamic){
 					//Move to the node in the past graph
-					if(currGr != 0 && graphs.get(currGr-1).map.get(currNode.getLoc())!=null){
-						currNode = graphs.get(currGr-1).map.get(currNode.getLoc());
+					if(currGr != 0 && graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc())!=null){
+						//get the node in the same loc in the past graph
+						graphs.get(currGr).setCurrNode(graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 						currGr--;
 						String s = "Graph "+(currGr+1)+" of "+graphs.size();
-						s += " Current node "+currNode.toString();
+						s += " Current node "+graphs.get(currGr).getCurrNode().toString();
 						System.out.println(s);
 						try {
 							doSpeak(s);
@@ -130,7 +134,7 @@ public class Display extends JFrame implements KeyListener{
 					}
 					//There is no node in the past graph
 					else if(currGr != 0){
-						String s = "No node at current location in past graph";
+						String s = "No node at current location in past graph. Cannot go to the past";
 						try {
 							doSpeak(s);
 						} catch (EngineException e1) {
@@ -189,11 +193,12 @@ public class Display extends JFrame implements KeyListener{
 				//new interaction which places on node in same loc in future
 				if(dynamic){
 					//Move to the node in the future graph
-					if(currGr != graphs.size()-1 && graphs.get(currGr+1).map.get(currNode.getLoc())!=null){
-						currNode = graphs.get(currGr+1).map.get(currNode.getLoc());
+					if(currGr != graphs.size()-1 && graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc())!=null){
+						//Get the node at the same loc in the future
+						graphs.get(currGr).setCurrNode(graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 						currGr++;
 						String s = "Graph "+(currGr+1)+" of "+graphs.size();
-						s += " Current node "+currNode.toString();
+						s += " Current node "+graphs.get(currGr).getCurrNode().toString();
 						System.out.println(s);
 						try {
 							doSpeak(s);
@@ -209,7 +214,7 @@ public class Display extends JFrame implements KeyListener{
 					}
 					//There is no node in the past graph
 					else if(currGr != graphs.size()-1){
-						String s = "No node at current location in future graph";
+						String s = "No node at current location in future graph. Cannot go to the future";
 						try {
 							doSpeak(s);
 						} catch (EngineException e1) {
@@ -247,8 +252,8 @@ public class Display extends JFrame implements KeyListener{
 		}
 		if(e.getKeyCode() == KeyEvent.VK_KP_UP || e.getKeyCode() == KeyEvent.VK_UP){
 			if(onNode){
-				currEdges = currNode.getInEdges();
-				currNode.setSel(false);
+				currEdges = graphs.get(currGr).getCurrNode().getInEdges();
+				graphs.get(currGr).getCurrNode().setSel(false);
 				currEdge = 0;
 				graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
 				String s = edgeInfo();
@@ -269,11 +274,11 @@ public class Display extends JFrame implements KeyListener{
 			else{
 				onNode =  true;
 				graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
-				currNode = currEdges.get(currEdge).start;
-				currNode.setSel(true);
-				System.out.println(currNode);
+				graphs.get(currGr).setCurrNode(currEdges.get(currEdge).start);
+				graphs.get(currGr).getCurrNode().setSel(true);
+				System.out.println(graphs.get(currGr).getCurrNode());
 				try {
-					doSpeak(currNode.toString());
+					doSpeak(graphs.get(currGr).getCurrNode().toString());
 				} catch (EngineException e1) {
 					e1.printStackTrace();
 				} catch (AudioException e1) {
@@ -287,8 +292,8 @@ public class Display extends JFrame implements KeyListener{
 		}
 		if(e.getKeyCode() == KeyEvent.VK_KP_DOWN || e.getKeyCode() == KeyEvent.VK_DOWN){
 			if(onNode){
-				currNode.setSel(false);
-				currEdges = currNode.getOutEdges();
+				graphs.get(currGr).getCurrNode().setSel(false);
+				currEdges = graphs.get(currGr).getCurrNode().getOutEdges();
 				currEdge = 0;
 				graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
 				String s = edgeInfo();
@@ -309,11 +314,11 @@ public class Display extends JFrame implements KeyListener{
 			else{
 				onNode =  true;
 				graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
-				currNode = currEdges.get(currEdge).end;
-				currNode.setSel(true);
-				System.out.println(currNode);
+				graphs.get(currGr).setCurrNode(currEdges.get(currEdge).end);
+				graphs.get(currGr).getCurrNode().setSel(true);
+				System.out.println(graphs.get(currGr).getCurrNode());
 				try {
-					doSpeak(currNode.toString());
+					doSpeak(graphs.get(currGr).getCurrNode().toString());
 				} catch (EngineException e1) {
 					e1.printStackTrace();
 				} catch (AudioException e1) {
@@ -329,7 +334,7 @@ public class Display extends JFrame implements KeyListener{
 			//Repeat current info
 			String s;
 			if(onNode){
-				s = currNode.toString();
+				s = graphs.get(currGr).getCurrNode().toString();
 			}
 			else{
 				s = edgeInfo();
@@ -352,7 +357,7 @@ public class Display extends JFrame implements KeyListener{
 			String s = "Graph "+(currGr+1)+" of "+graphs.size();
 			s += graphs.get(currGr).nodes.size() +" Nodes and " + graphs.get(currGr).edges.size() + " Edges";
 			if(onNode){
-				s += " Current "+currNode.toString();
+				s += " Current "+graphs.get(currGr).getCurrNode().toString();
 			}
 			else{
 				s += " Current "+edgeInfo();
@@ -422,12 +427,12 @@ public class Display extends JFrame implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 
 	}
 }

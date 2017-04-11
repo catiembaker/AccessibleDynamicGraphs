@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +40,30 @@ public class Graph extends JPanel{
 		return map;
 	}
 		
+	public void paint(Graphics g){
+		//		System.out.println("Display");
+		g.setColor(Color.WHITE);
+		g.drawRect(0, 0, 1000, 1000);
+
+		for(int i = 0; i<nodes.size(); i++){
+			//				System.out.print("Drawing ");
+			nodes.get(i).paintComponent(g);
+		}
+		for(int i = 0; i<edges.size(); i++){
+			//				System.out.print("Drawing ");
+			edges.get(i).paintComponent(g);
+		}
+
+
+	}
+	
+	public Node getCurrNode(){
+		return currNode;
+	}
+	public void setCurrNode(Node a){
+		currNode = a;
+	}
+	
 	public void loadGraph1(){
 		directed = false;
 		
