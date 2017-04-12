@@ -24,7 +24,7 @@ public class Graph extends JPanel{
 		edges = new ArrayList<Edge>();
 		map = new HashMap<Integer,Node>();
 		rep = new HashMap<Edge,Edge>();
-		
+		setSize(1200,1000);
 	}
 	public Graph(int num){
 		nodes = new ArrayList<Node>();
@@ -41,9 +41,9 @@ public class Graph extends JPanel{
 	}
 		
 	public void paint(Graphics g){
-		//		System.out.println("Display");
+//		System.out.println("Display");
 		g.setColor(Color.WHITE);
-		g.drawRect(0, 0, 1000, 1000);
+		g.clearRect(0, 0, 1000, 1000);
 
 		for(int i = 0; i<nodes.size(); i++){
 			//				System.out.print("Drawing ");
@@ -78,7 +78,6 @@ public class Graph extends JPanel{
 		map.put(3, c);
 		
 		Edge ab = new Edge(a,b,500,275,275,700);
-		System.out.println(ab.visible);
 		Edge ba = new Edge(b,a,false);
 		Edge bc = new Edge(b,c,300,725,750,725);
 		Edge cb = new Edge(c,b,false);
@@ -117,50 +116,49 @@ public class Graph extends JPanel{
 		Node a = new Node(500,250,"A",1);
 		nodes.add(a);
 		map.put(1, a);
-		Node b = new Node(250,700,"B",2);
-		nodes.add(b);
-		map.put(2, b);
+		Node d = new Node(250,700,"X",2);
+		nodes.add(d);
+		map.put(2, d);
 		Node c = new Node(750,700,"C",3);
 		nodes.add(c);
 		map.put(3, c);
 		
-		Edge ab = new Edge(a,b,500,275,275,700);
-		System.out.println(ab.visible);
-		Edge ba = new Edge(b,a,false);
-		Edge bc = new Edge(b,c,300,725,750,725);
-		Edge cb = new Edge(c,b,false);
+		Edge ad = new Edge(a,d,500,275,275,700);
+		Edge da = new Edge(d,a,false);
+		Edge dc = new Edge(d,c,300,725,750,725);
+		Edge cd = new Edge(c,d,false);
 		Edge ac = new Edge(a,c,550,275,775,700);
 		Edge ca = new Edge(c,a,false);
-		edges.add(ab);
+		edges.add(ad);
 		edges.add(ac);
-		edges.add(bc);
-		rep.put(ab,ab);
-		rep.put(ba,ab);
+		edges.add(dc);
+		rep.put(ad,ad);
+		rep.put(da,ad);
 		rep.put(ac,ac);
 		rep.put(ca,ac);
-		rep.put(bc,bc);
-		rep.put(cb,bc);
+		rep.put(dc,dc);
+		rep.put(cd,dc);
 		
 		
-		a.addInEdge(ba);
+		a.addInEdge(da);
 		a.addInEdge(ca);
-		a.addOutEdge(ab);
+		a.addOutEdge(ad);
 		a.addOutEdge(ac);
 		
-		b.addInEdge(ab);
-		b.addInEdge(cb);
-		b.addOutEdge(ba);
-		b.addOutEdge(bc);
+		d.addInEdge(ad);
+		d.addInEdge(cd);
+		d.addOutEdge(da);
+		d.addOutEdge(dc);
 		
 		c.addInEdge(ac);
-		c.addInEdge(bc);
+		c.addInEdge(dc);
 		c.addOutEdge(ca);
-		c.addOutEdge(cb);
+		c.addOutEdge(cd);
 		
 		
-		add(a);
-		add(b);
-		add(c);
+//		add(a);
+//		add(d);
+//		add(c);
 		
 	}
 	

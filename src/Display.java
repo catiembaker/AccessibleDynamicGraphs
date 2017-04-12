@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -22,14 +24,15 @@ import javax.swing.*;
  * Controls the visual display, the self-voicing and keyboard interactions
  * with the graph
  */
-public class Display extends JFrame implements KeyListener{
+public class Display extends JFrame implements ActionListener, KeyListener{
 	public ArrayList<Graph> graphs;
 	public ArrayList<Edge> currEdges;
 	public int currEdge;
 	public boolean onNode;
 	public int currGr;
 	public boolean dynamic;
-
+	public JPanel buttons;
+	public Graph currGraph;
 	SynthesizerModeDesc desc;
 	Synthesizer synthesizer;
 	Voice voice;
@@ -37,52 +40,90 @@ public class Display extends JFrame implements KeyListener{
 
 	public Display(){
 		setTitle("Graph");
-		setSize(1000,1000);
-		setVisible(true);
+		setSize(1200,1200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		graphs = new ArrayList<Graph>();
-	}
-
-	public void paint(Graphics g){
-////		System.out.println("Display");
-//		g.setColor(Color.WHITE);
-//		g.drawRect(0, 0, 1000, 1000);
-//		if(graphs.size()>0){
-//			for(int i = 0; i<graphs.get(currGr).nodes.size(); i++){
-////				System.out.print("Drawing ");
-//				graphs.get(currGr).nodes.get(i).paintComponent(g);
-//			}
-//			for(int i = 0; i<graphs.get(currGr).edges.size(); i++){
-////				System.out.print("Drawing ");
-//				graphs.get(currGr).edges.get(i).paintComponent(g);
-//			}
-//		}
-		if(graphs.size()>0){
-			graphs.get(currGr).paint(g);
-		}
-
 		
 	}
+
+//	public void paint(Graphics g){
+//		if(graphs.size()>0){
+//			graphs.get(currGr).paint(g);
+//		}	
+//	}
 
 
 	public static void main(String[] args) throws Exception{
 		Display d = new Display();
 		d.setUp();
-		d.repaint();
+		//d.setLayout(new GridLayout(2,1));
+		d.add(d.buttons);
+		d.setVisible(true);
+//		d.add(d.currGraph);
+		//d.repaint();
 		d.init("kevin16");
+		
+		
 	}
 	public void setUp(){
-		Graph g1 = new Graph();
+		
 		addKeyListener(this);
-		g1.loadGraph1();
-		add(g1);
+		buttons = new JPanel();
+		buttons.setLayout(new GridLayout(3,2));
+		buttons.setSize(1200, 200);
+		JButton t1 = new JButton("Task 1");
+		t1.setActionCommand("Task1");
+		JButton t2 = new JButton("Task 2");
+		t2.setActionCommand("Task2");
+		JButton t3 = new JButton("Task 3");
+		t3.setActionCommand("Task3");
+		JButton t4 = new JButton("Task 4");
+		t4.setActionCommand("Task4");
+		JButton t5 = new JButton("Task 5");
+		t5.setActionCommand("Task5");
+		JButton t6 = new JButton("Task 6");
+		t6.setActionCommand("Task6");
+		t1.addActionListener(this);
+		t2.addActionListener(this);
+		t3.addActionListener(this);
+		t4.addActionListener(this);
+		t5.addActionListener(this);
+		t6.addActionListener(this);
+		//t1.getAccessibleContext().setAccessibleName("Task 1");
+		buttons.add(t1);
+		buttons.add(t2);
+		buttons.add(t3);
+		buttons.add(t4);
+		buttons.add(t5);
+		buttons.add(t6);
+		currGraph = new Graph();
+//		pack();
+	}
+	
+	public void setUpGraphs(int taskNum){
+		Graph g1 = new Graph();
+		Graph g2 = new Graph();
+		if(taskNum == 1){
+			g1.loadGraph1();
+			g1.setCurrNode(g1.nodes.get(0));
+			g1.getCurrNode().setSel(true);
+			g2.loadGraph2();
+			g2.setCurrNode(g2.nodes.get(0));
+			g2.getCurrNode().setSel(true);
+		}
+		
 		graphs.add(g1);
+		graphs.add(g2);
 		currEdge = 0;
 		onNode = true;
 		currGr = 0;
-		graphs.get(currGr).setCurrNode(graphs.get(currGr).nodes.get(0));
-		graphs.get(currGr).getCurrNode().setSel(true);
+		//graphs.get(currGr).setCurrNode(graphs.get(currGr).nodes.get(0));
+		//graphs.get(currGr).getCurrNode().setSel(true);
+		currGraph = graphs.get(currGr);
+		add(currGraph);
+		currGraph.repaint();
 		onNode = true;
+		requestFocusInWindow();
 	}
 
 	@Override
@@ -115,8 +156,9 @@ public class Display extends JFrame implements KeyListener{
 					//Move to the node in the past graph
 					if(currGr != 0 && graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc())!=null){
 						//get the node in the same loc in the past graph
-						graphs.get(currGr).setCurrNode(graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
+						graphs.get(currGr-1).setCurrNode(graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 						currGr--;
+						currGraph = graphs.get(currGr);
 						String s = "Graph "+(currGr+1)+" of "+graphs.size();
 						s += " Current node "+graphs.get(currGr).getCurrNode().toString();
 						System.out.println(s);
@@ -163,9 +205,42 @@ public class Display extends JFrame implements KeyListener{
 						}
 					}
 				}
-				//old interaction which places at top?
+				//old interaction which places at last visited in that graph
 				else{
-					
+					if(currGr != 0 ){
+						//current node is stored in graph so based on previous visit
+						currGr--;
+						currGraph = graphs.get(currGr);
+						String s = "Graph "+(currGr+1)+" of "+graphs.size();
+						s += " Current node "+graphs.get(currGr).getCurrNode().toString();
+						System.out.println(s);
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+					//There is no past graph
+					else{
+						String s = "No past graph";
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
 				}
 			}
 		}
@@ -195,8 +270,9 @@ public class Display extends JFrame implements KeyListener{
 					//Move to the node in the future graph
 					if(currGr != graphs.size()-1 && graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc())!=null){
 						//Get the node at the same loc in the future
-						graphs.get(currGr).setCurrNode(graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
+						graphs.get(currGr+1).setCurrNode(graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 						currGr++;
+						currGraph = graphs.get(currGr);
 						String s = "Graph "+(currGr+1)+" of "+graphs.size();
 						s += " Current node "+graphs.get(currGr).getCurrNode().toString();
 						System.out.println(s);
@@ -243,10 +319,46 @@ public class Display extends JFrame implements KeyListener{
 						}
 					}
 				}
-				// TODO Implement this
-				//old interaction which places at top?
+				//old interaction which places at last visited in graph
 				else{
-					
+					if(currGr != graphs.size()-1 ){
+						//current node is stored in graph based on previous visit or initialization
+						currGr++;
+//						remove(currGraph);
+						currGraph = graphs.get(currGr);
+						
+						add(currGraph);
+						requestFocusInWindow();
+						String s = "Graph "+(currGr+1)+" of "+graphs.size();
+						s += " Current node "+graphs.get(currGr).getCurrNode().toString();
+						System.out.println(s);
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+					//There is no past graph
+					else{
+						String s = "No future graph";
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
 				}
 			}
 		}
@@ -374,7 +486,7 @@ public class Display extends JFrame implements KeyListener{
 				e1.printStackTrace();
 			}
 		}
-		repaint();
+		currGraph.repaint();
 	}
 	/*
 	 * Returns string w/ edge name and location in edge list (index start at 1)
@@ -434,5 +546,30 @@ public class Display extends JFrame implements KeyListener{
 	public void keyTyped(KeyEvent e) {
 		// Auto-generated method stub
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if("Task1".equals(e.getActionCommand())){
+			remove(buttons);
+			repaint();
+			setUpGraphs(1);
+		}
+		if("Task2".equals(e.getActionCommand())){
+			setUpGraphs(2);
+		}
+		if("Task3".equals(e.getActionCommand())){
+			setUpGraphs(3);
+		}
+		if("Task4".equals(e.getActionCommand())){
+			setUpGraphs(4);
+		}
+		if("Task5".equals(e.getActionCommand())){
+			setUpGraphs(5);
+		}
+		if("Task6".equals(e.getActionCommand())){
+			setUpGraphs(6);
+		}
 	}
 }
