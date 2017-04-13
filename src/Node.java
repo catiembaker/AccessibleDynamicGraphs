@@ -28,6 +28,7 @@ public class Node extends JComponent{
 		name = theName;
 		inEdges = new ArrayList<Edge>();
 		outEdges = new ArrayList<Edge>();
+		loc = location;
 	}
 	
 	public Node(int xPos, int yPos, String theName, int location){
@@ -37,6 +38,7 @@ public class Node extends JComponent{
 		name = theName;
 		inEdges = new ArrayList<Edge>();
 		outEdges = new ArrayList<Edge>();
+		loc = location;
 	}
 	
 	public Node(int xPos, int yPos, boolean selected, String theName, int location){
@@ -46,6 +48,7 @@ public class Node extends JComponent{
 		inEdges = new ArrayList<Edge>();
 		outEdges = new ArrayList<Edge>();
 		name = theName;
+		loc = location;
 	}
 	
 	public void paintComponent(Graphics g){

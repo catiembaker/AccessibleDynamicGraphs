@@ -24,7 +24,7 @@ public class Graph extends JPanel{
 		edges = new ArrayList<Edge>();
 		map = new HashMap<Integer,Node>();
 		rep = new HashMap<Edge,Edge>();
-		setSize(1200,1000);
+		setSize(1200,1200);
 	}
 	public Graph(int num){
 		nodes = new ArrayList<Node>();
@@ -43,7 +43,7 @@ public class Graph extends JPanel{
 	public void paint(Graphics g){
 //		System.out.println("Display");
 		g.setColor(Color.WHITE);
-		g.clearRect(0, 0, 1000, 1000);
+		g.clearRect(0, 0, 1200, 1200);
 
 		for(int i = 0; i<nodes.size(); i++){
 			//				System.out.print("Drawing ");

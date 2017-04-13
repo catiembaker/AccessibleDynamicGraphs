@@ -24,14 +24,14 @@ import javax.swing.*;
  * Controls the visual display, the self-voicing and keyboard interactions
  * with the graph
  */
-public class Display extends JFrame implements ActionListener, KeyListener{
+public class Display extends JFrame implements  KeyListener{
 	public ArrayList<Graph> graphs;
 	public ArrayList<Edge> currEdges;
 	public int currEdge;
 	public boolean onNode;
 	public int currGr;
 	public boolean dynamic;
-	public JPanel buttons;
+//	public JPanel buttons;
 	public Graph currGraph;
 	SynthesizerModeDesc desc;
 	Synthesizer synthesizer;
@@ -57,7 +57,7 @@ public class Display extends JFrame implements ActionListener, KeyListener{
 		Display d = new Display();
 		d.setUp();
 		//d.setLayout(new GridLayout(2,1));
-		d.add(d.buttons);
+//		d.add(d.buttons);
 		d.setVisible(true);
 //		d.add(d.currGraph);
 		//d.repaint();
@@ -68,34 +68,34 @@ public class Display extends JFrame implements ActionListener, KeyListener{
 	public void setUp(){
 		
 		addKeyListener(this);
-		buttons = new JPanel();
-		buttons.setLayout(new GridLayout(3,2));
-		buttons.setSize(1200, 200);
-		JButton t1 = new JButton("Task 1");
-		t1.setActionCommand("Task1");
-		JButton t2 = new JButton("Task 2");
-		t2.setActionCommand("Task2");
-		JButton t3 = new JButton("Task 3");
-		t3.setActionCommand("Task3");
-		JButton t4 = new JButton("Task 4");
-		t4.setActionCommand("Task4");
-		JButton t5 = new JButton("Task 5");
-		t5.setActionCommand("Task5");
-		JButton t6 = new JButton("Task 6");
-		t6.setActionCommand("Task6");
-		t1.addActionListener(this);
-		t2.addActionListener(this);
-		t3.addActionListener(this);
-		t4.addActionListener(this);
-		t5.addActionListener(this);
-		t6.addActionListener(this);
-		//t1.getAccessibleContext().setAccessibleName("Task 1");
-		buttons.add(t1);
-		buttons.add(t2);
-		buttons.add(t3);
-		buttons.add(t4);
-		buttons.add(t5);
-		buttons.add(t6);
+//		buttons = new JPanel();
+//		buttons.setLayout(new GridLayout(3,2));
+//		buttons.setSize(1200, 200);
+//		JButton t1 = new JButton("Task 1");
+//		t1.setActionCommand("Task1");
+//		JButton t2 = new JButton("Task 2");
+//		t2.setActionCommand("Task2");
+//		JButton t3 = new JButton("Task 3");
+//		t3.setActionCommand("Task3");
+//		JButton t4 = new JButton("Task 4");
+//		t4.setActionCommand("Task4");
+//		JButton t5 = new JButton("Task 5");
+//		t5.setActionCommand("Task5");
+//		JButton t6 = new JButton("Task 6");
+//		t6.setActionCommand("Task6");
+//		t1.addActionListener(this);
+//		t2.addActionListener(this);
+//		t3.addActionListener(this);
+//		t4.addActionListener(this);
+//		t5.addActionListener(this);
+//		t6.addActionListener(this);
+//		t1.getAccessibleContext().setAccessibleName("Task 1");
+//		buttons.add(t1);
+//		buttons.add(t2);
+//		buttons.add(t3);
+//		buttons.add(t4);
+//		buttons.add(t5);
+//		buttons.add(t6);
 		currGraph = new Graph();
 //		pack();
 	}
@@ -154,10 +154,14 @@ public class Display extends JFrame implements ActionListener, KeyListener{
 				//new interaction which places on node in same loc in past
 				if(dynamic){
 					//Move to the node in the past graph
+					System.out.println("Dynamic");
 					if(currGr != 0 && graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc())!=null){
 						//get the node in the same loc in the past graph
+						System.out.println("To Past in dynamic");
+						graphs.get(currGr).getCurrNode().setSel(false);
 						graphs.get(currGr-1).setCurrNode(graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 						currGr--;
+						graphs.get(currGr).getCurrNode().setSel(true);
 						currGraph = graphs.get(currGr);
 						String s = "Graph "+(currGr+1)+" of "+graphs.size();
 						s += " Current node "+graphs.get(currGr).getCurrNode().toString();
@@ -173,6 +177,7 @@ public class Display extends JFrame implements ActionListener, KeyListener{
 						} catch (InterruptedException e1) {
 							e1.printStackTrace();
 						}
+						
 					}
 					//There is no node in the past graph
 					else if(currGr != 0){
@@ -267,15 +272,21 @@ public class Display extends JFrame implements ActionListener, KeyListener{
 				System.out.println("Go to future");
 				//new interaction which places on node in same loc in future
 				if(dynamic){
+//					System.out.println("Dynmamic");
 					//Move to the node in the future graph
+					
 					if(currGr != graphs.size()-1 && graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc())!=null){
 						//Get the node at the same loc in the future
+						System.out.println("Dynamic in future");
+						graphs.get(currGr).getCurrNode().setSel(false);
 						graphs.get(currGr+1).setCurrNode(graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 						currGr++;
+						graphs.get(currGr).getCurrNode().setSel(true);
 						currGraph = graphs.get(currGr);
 						String s = "Graph "+(currGr+1)+" of "+graphs.size();
 						s += " Current node "+graphs.get(currGr).getCurrNode().toString();
 						System.out.println(s);
+						add(currGraph);
 						try {
 							doSpeak(s);
 						} catch (EngineException e1) {
@@ -288,8 +299,9 @@ public class Display extends JFrame implements ActionListener, KeyListener{
 							e1.printStackTrace();
 						}
 					}
-					//There is no node in the past graph
+					//There is no node in the future graph
 					else if(currGr != graphs.size()-1){
+						System.out.println("No node in future graph");
 						String s = "No node at current location in future graph. Cannot go to the future";
 						try {
 							doSpeak(s);
@@ -306,6 +318,7 @@ public class Display extends JFrame implements ActionListener, KeyListener{
 					//There is no past graph
 					else{
 						String s = "No future graph";
+						System.out.println(s);
 						try {
 							doSpeak(s);
 						} catch (EngineException e1) {
@@ -328,7 +341,7 @@ public class Display extends JFrame implements ActionListener, KeyListener{
 						currGraph = graphs.get(currGr);
 						
 						add(currGraph);
-						requestFocusInWindow();
+//						requestFocussInWindow();
 						String s = "Graph "+(currGr+1)+" of "+graphs.size();
 						s += " Current node "+graphs.get(currGr).getCurrNode().toString();
 						System.out.println(s);
@@ -486,6 +499,27 @@ public class Display extends JFrame implements ActionListener, KeyListener{
 				e1.printStackTrace();
 			}
 		}
+		if(e.getKeyCode() == KeyEvent.VK_D){
+			dynamic = !dynamic;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_1){
+			setUpGraphs(1);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_2){
+			setUpGraphs(2);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_3){
+			setUpGraphs(3);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_4){
+			setUpGraphs(4);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_5){
+			setUpGraphs(5);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_6){
+			setUpGraphs(6);
+		}
 		currGraph.repaint();
 	}
 	/*
@@ -548,28 +582,5 @@ public class Display extends JFrame implements ActionListener, KeyListener{
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if("Task1".equals(e.getActionCommand())){
-			remove(buttons);
-			repaint();
-			setUpGraphs(1);
-		}
-		if("Task2".equals(e.getActionCommand())){
-			setUpGraphs(2);
-		}
-		if("Task3".equals(e.getActionCommand())){
-			setUpGraphs(3);
-		}
-		if("Task4".equals(e.getActionCommand())){
-			setUpGraphs(4);
-		}
-		if("Task5".equals(e.getActionCommand())){
-			setUpGraphs(5);
-		}
-		if("Task6".equals(e.getActionCommand())){
-			setUpGraphs(6);
-		}
-	}
+	
 }
