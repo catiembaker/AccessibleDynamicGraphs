@@ -72,10 +72,15 @@ public class Node extends JComponent{
 	public int getLoc(){
 		return loc;
 	}
+	
 	public String toString(){
 		String s = "Node "+name;
 		s += " " + inEdges.size() + " in edges and " + outEdges.size() + " out edges.";
 		return s;
+	}
+	
+	public String getName(){
+		return name;
 	}
 	
 	public void addInEdge(Edge a){
@@ -93,6 +98,7 @@ public class Node extends JComponent{
 	public ArrayList<Edge> getOutEdges(){
 		return outEdges;
 	}
+	
 	public void setSel(Boolean b){
 		sel = b;
 	}
