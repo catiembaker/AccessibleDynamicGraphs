@@ -18,6 +18,7 @@ public class Edge extends JComponent{
 	BasicStroke s = new BasicStroke(3);
 	public boolean visible;
 	public boolean dir;
+	public double scaleFactor;
 	
 	public Edge(Node a, Node b, int sX, int sY, int eX, int eY){
 		start = a;
@@ -62,13 +63,18 @@ public class Edge extends JComponent{
 		sel=b;
 	}
 	
+	public void setScaleFactor(double sf){
+		scaleFactor = sf;
+	}
+	
 	public String toString(){
 		String s = "Edge "+start.name + " " + end.name;
 		if(weight != 0){
-			s += " weight: "+weight;
+			s += ". weight: "+weight;
 		}
 		return s;
 	}
+	
 	
 	public void paintComponent(Graphics g){
 //		System.out.println("Painting");
@@ -77,19 +83,18 @@ public class Edge extends JComponent{
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setStroke(s);
-//			System.out.println(toString());
+//			System.out.println(scaleFactor);
 			if(sel){
 				g2.setColor(Color.RED);
 			}
 			else{
 				g2.setColor(Color.BLACK);
 			}
-
-			g2.drawLine(startX, startY, endX, endY);
+			g2.drawLine((int)(scaleFactor*startX), (int)(scaleFactor*startY), (int)(scaleFactor*endX), (int)(scaleFactor*endY));
 			if(weight != 0){
-				g2.setFont(new Font("Arial",Font.BOLD, 32));
+				g2.setFont(new Font("Arial",Font.BOLD, (int)(scaleFactor*32)));
 				String s = ""+weight;
-				g2.drawString(s, (startX+endX)/2, (startY+endY)/2 + 15);
+				g2.drawString(s, (int)(scaleFactor*(startX+endX)/2), (int)(scaleFactor*((startY+endY)/2 + 15)));
 			}	
 		}
 	}

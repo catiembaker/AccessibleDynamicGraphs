@@ -20,6 +20,7 @@ public class Node extends JComponent{
 	public ArrayList<Edge> inEdges;
 	public ArrayList<Edge> outEdges;
 	BasicStroke s = new BasicStroke(3);
+	public double scaleFactor;
 	
 	public Node(String theName, int location){
 		x=0;
@@ -64,18 +65,20 @@ public class Node extends JComponent{
 			g2.setColor(Color.BLACK);
 		}
 		
-		g2.drawOval(x, y, 50, 50);
-		g2.setFont(new Font("Arial",Font.BOLD, 32));
-		g2.drawString(name, x+15, y+35);
+		g2.drawOval((int)(scaleFactor*x), (int)(scaleFactor*y), (int)(scaleFactor*50), (int)(scaleFactor*50));
+		g2.setFont(new Font("Arial",Font.BOLD, (int)(scaleFactor*32)));
+		g2.drawString(name, (int)(scaleFactor*(x+7)), (int)(scaleFactor*(y+35)));
 	}
 	
 	public int getLoc(){
 		return loc;
 	}
-	
+	public void setScaleFactor(double sf){
+		scaleFactor = sf;
+	}
 	public String toString(){
 		String s = "Node "+name;
-		s += " " + inEdges.size() + " in edges and " + outEdges.size() + " out edges.";
+		s += ". " + inEdges.size() + " in edges and " + outEdges.size() + " out edges.";
 		return s;
 	}
 	

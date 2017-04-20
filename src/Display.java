@@ -1,6 +1,8 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -8,6 +10,10 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyVetoException;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
@@ -38,22 +44,35 @@ public class Display extends JFrame implements  KeyListener{
 	Voice voice;
 	public boolean searchMode;
 	public String search;
-
+	public File file;
+	public BufferedWriter writer;
+	public double scaleFactor;
 
 	public Display(){
 		setTitle("Graph");
-		setSize(1200,1200);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double width = screenSize.getWidth();
+		double height = screenSize.getHeight();
+		if(width>height){
+			scaleFactor = (height/1500.0)*.75;
+		}
+		else{
+			scaleFactor = (width/1500.0)*.75;
+		}
+		System.out.println(scaleFactor);
+		setSize((int)(1500*scaleFactor),(int)(1500*scaleFactor));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		graphs = new ArrayList<Graph>();
 		search = "";
+		file = new File("log.txt");
+		try {
+			 writer = new BufferedWriter(new FileWriter(file));
+		} catch (IOException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
-
-//	public void paint(Graphics g){
-//		if(graphs.size()>0){
-//			graphs.get(currGr).paint(g);
-//		}	
-//	}
-
 
 	public static void main(String[] args) throws Exception{
 		Display d = new Display();
@@ -68,64 +87,115 @@ public class Display extends JFrame implements  KeyListener{
 		
 	}
 	public void setUp(){
-		
 		addKeyListener(this);
-//		buttons = new JPanel();
-//		buttons.setLayout(new GridLayout(3,2));
-//		buttons.setSize(1200, 200);
-//		JButton t1 = new JButton("Task 1");
-//		t1.setActionCommand("Task1");
-//		JButton t2 = new JButton("Task 2");
-//		t2.setActionCommand("Task2");
-//		JButton t3 = new JButton("Task 3");
-//		t3.setActionCommand("Task3");
-//		JButton t4 = new JButton("Task 4");
-//		t4.setActionCommand("Task4");
-//		JButton t5 = new JButton("Task 5");
-//		t5.setActionCommand("Task5");
-//		JButton t6 = new JButton("Task 6");
-//		t6.setActionCommand("Task6");
-//		t1.addActionListener(this);
-//		t2.addActionListener(this);
-//		t3.addActionListener(this);
-//		t4.addActionListener(this);
-//		t5.addActionListener(this);
-//		t6.addActionListener(this);
-//		t1.getAccessibleContext().setAccessibleName("Task 1");
-//		buttons.add(t1);
-//		buttons.add(t2);
-//		buttons.add(t3);
-//		buttons.add(t4);
-//		buttons.add(t5);
-//		buttons.add(t6);
-		currGraph = new Graph();
-//		pack();
 	}
 	
 	public void setUpGraphs(int taskNum){
-		Graph g1 = new Graph();
-		Graph g2 = new Graph();
+		Graph g1 = new Graph(scaleFactor);
+		Graph g2 = new Graph(scaleFactor);
 		if(taskNum == 1){
-			g1.loadGraph1();
+			g1.load1a();
 			g1.setCurrNode(g1.nodes.get(0));
 			g1.getCurrNode().setSel(true);
-			g2.loadGraph2();
+			g2.load1b();
 			g2.setCurrNode(g2.nodes.get(0));
 			g2.getCurrNode().setSel(true);
+			graphs.clear();
+			graphs.add(g1);
+			graphs.add(g2);
 		}
-		
-		graphs.add(g1);
-		graphs.add(g2);
+		else if(taskNum == 2){
+			g1.load2a();
+			g1.setCurrNode(g1.nodes.get(0));
+			g1.getCurrNode().setSel(true);
+			g2.load2b();
+			g2.setCurrNode(g2.nodes.get(0));
+			g2.getCurrNode().setSel(true);
+			graphs.clear();
+			graphs.add(g1);
+			graphs.add(g2);
+		}
+		else if(taskNum == 3){
+			g1.load3a();
+			g1.setCurrNode(g1.nodes.get(0));
+			g1.getCurrNode().setSel(true);
+			g2.load3b();
+			g2.setCurrNode(g2.nodes.get(0));
+			g2.getCurrNode().setSel(true);
+			graphs.clear();
+			graphs.add(g1);
+			graphs.add(g2);
+		}
+		else if(taskNum == 4){
+			g1.load4a();
+			g1.setCurrNode(g1.nodes.get(0));
+			g1.getCurrNode().setSel(true);
+			g2.load4b();
+			g2.setCurrNode(g2.nodes.get(0));
+			g2.getCurrNode().setSel(true);
+			graphs.clear();
+			graphs.add(g1);
+			graphs.add(g2);
+		}
+		else if(taskNum == 5){
+			g1.load5a();
+			g1.setCurrNode(g1.nodes.get(0));
+			g1.getCurrNode().setSel(true);
+			g2.load5b();
+			g2.setCurrNode(g2.nodes.get(0));
+			g2.getCurrNode().setSel(true);
+			graphs.clear();
+			graphs.add(g1);
+			graphs.add(g2);
+		}
+		else if(taskNum == 6){
+			g1.load6a();
+			g1.setCurrNode(g1.nodes.get(0));
+			g1.getCurrNode().setSel(true);
+			g2.load6b();
+			g2.setCurrNode(g2.nodes.get(0));
+			g2.getCurrNode().setSel(true);
+			graphs.clear();
+			graphs.add(g1);
+			graphs.add(g2);
+		}
+		//String s = "Task "+taskNum;
+		try {
+			writer.write("Task "+taskNum);
+			writer.newLine();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		currEdge = 0;
 		onNode = true;
 		currGr = 0;
-		//graphs.get(currGr).setCurrNode(graphs.get(currGr).nodes.get(0));
-		//graphs.get(currGr).getCurrNode().setSel(true);
 		currGraph = graphs.get(currGr);
-		add(currGraph);
-		currGraph.repaint();
-		onNode = true;
+		add(g1);
+		System.out.println("before");
+		graphs.get(currGr).repaint();
+		System.out.println("after");
+//		currGraph.repaint();
+//		onNode = true;
 		requestFocusInWindow();
+		try {
+			String s = "Graph "+(currGr+1)+" of "+graphs.size() + ". ";
+			s += graphs.get(currGr).nodes.size() +" Nodes and " + graphs.get(currGr).edges.size() + " Edges";
+			s += " Current "+graphs.get(currGr).getCurrNode().toString();
+			doSpeak(s);
+		} catch (EngineException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		} catch (AudioException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -138,7 +208,7 @@ public class Display extends JFrame implements  KeyListener{
 					currEdge = (currEdge-1+currEdges.size())%currEdges.size();
 					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
 					String s = edgeInfo();
-					System.out.println(s);
+//					System.out.println(s);
 					try {
 						doSpeak(s);
 					} catch (EngineException e1) {
@@ -152,15 +222,15 @@ public class Display extends JFrame implements  KeyListener{
 					}
 				}
 				else if(onNode && e.isShiftDown()){
-					System.out.println("Go to past!");
+//					System.out.println("Go to past!");
 					//TODO Implement this 
 					//new interaction which places on node in same loc in past
 					if(dynamic){
 						//Move to the node in the past graph
-						System.out.println("Dynamic");
+//						System.out.println("Dynamic");
 						if(currGr != 0 && graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc())!=null){
 							//get the node in the same loc in the past graph
-							System.out.println("To Past in dynamic");
+//							System.out.println("To Past in dynamic");
 							graphs.get(currGr).getCurrNode().setSel(false);
 							graphs.get(currGr-1).setCurrNode(graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 							currGr--;
@@ -168,7 +238,7 @@ public class Display extends JFrame implements  KeyListener{
 							currGraph = graphs.get(currGr);
 							String s = "Graph "+(currGr+1)+" of "+graphs.size();
 							s += " Current node "+graphs.get(currGr).getCurrNode().toString();
-							System.out.println(s);
+//							System.out.println(s);
 							try {
 								doSpeak(s);
 							} catch (EngineException e1) {
@@ -221,7 +291,7 @@ public class Display extends JFrame implements  KeyListener{
 							currGraph = graphs.get(currGr);
 							String s = "Graph "+(currGr+1)+" of "+graphs.size();
 							s += " Current node "+graphs.get(currGr).getCurrNode().toString();
-							System.out.println(s);
+//							System.out.println(s);
 							try {
 								doSpeak(s);
 							} catch (EngineException e1) {
@@ -258,7 +328,7 @@ public class Display extends JFrame implements  KeyListener{
 					currEdge = (currEdge+1)%currEdges.size();
 					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
 					String s = edgeInfo();
-					System.out.println(s);
+//					System.out.println(s);
 					try {
 						doSpeak(s);
 					} catch (EngineException e1) {
@@ -272,7 +342,7 @@ public class Display extends JFrame implements  KeyListener{
 					}
 				}
 				else if(onNode && e.isShiftDown()){
-					System.out.println("Go to future");
+//					System.out.println("Go to future");
 					//new interaction which places on node in same loc in future
 					if(dynamic){
 						//					System.out.println("Dynmamic");
@@ -280,7 +350,7 @@ public class Display extends JFrame implements  KeyListener{
 
 						if(currGr != graphs.size()-1 && graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc())!=null){
 							//Get the node at the same loc in the future
-							System.out.println("Dynamic in future");
+//							System.out.println("Dynamic in future");
 							graphs.get(currGr).getCurrNode().setSel(false);
 							graphs.get(currGr+1).setCurrNode(graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 							currGr++;
@@ -288,7 +358,7 @@ public class Display extends JFrame implements  KeyListener{
 							currGraph = graphs.get(currGr);
 							String s = "Graph "+(currGr+1)+" of "+graphs.size();
 							s += " Current node "+graphs.get(currGr).getCurrNode().toString();
-							System.out.println(s);
+//							System.out.println(s);
 							add(currGraph);
 							try {
 								doSpeak(s);
@@ -304,7 +374,7 @@ public class Display extends JFrame implements  KeyListener{
 						}
 						//There is no node in the future graph
 						else if(currGr != graphs.size()-1){
-							System.out.println("No node in future graph");
+//							System.out.println("No node in future graph");
 							String s = "No node at current location in future graph. Cannot go to the future";
 							try {
 								doSpeak(s);
@@ -321,7 +391,7 @@ public class Display extends JFrame implements  KeyListener{
 						//There is no past graph
 						else{
 							String s = "No future graph";
-							System.out.println(s);
+//							System.out.println(s);
 							try {
 								doSpeak(s);
 							} catch (EngineException e1) {
@@ -347,7 +417,7 @@ public class Display extends JFrame implements  KeyListener{
 							//						requestFocussInWindow();
 							String s = "Graph "+(currGr+1)+" of "+graphs.size();
 							s += " Current node "+graphs.get(currGr).getCurrNode().toString();
-							System.out.println(s);
+//							System.out.println(s);
 							try {
 								doSpeak(s);
 							} catch (EngineException e1) {
@@ -380,31 +450,50 @@ public class Display extends JFrame implements  KeyListener{
 			}
 			if(e.getKeyCode() == KeyEvent.VK_KP_UP || e.getKeyCode() == KeyEvent.VK_UP){
 				if(onNode){
-					currEdges = graphs.get(currGr).getCurrNode().getInEdges();
-					graphs.get(currGr).getCurrNode().setSel(false);
-					currEdge = 0;
-					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
-					String s = edgeInfo();
-					System.out.println(s);
-					try {
-						doSpeak(s);
-					} catch (EngineException e1) {
-						e1.printStackTrace();
-					} catch (AudioException e1) {
-						e1.printStackTrace();
-					} catch (IllegalArgumentException e1) {
-						e1.printStackTrace();
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
+					if(graphs.get(currGr).getCurrNode().getInEdges().size()>0){
+						currEdges = graphs.get(currGr).getCurrNode().getInEdges();
+						graphs.get(currGr).getCurrNode().setSel(false);
+						currEdge = 0;
+						graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
+						String s = edgeInfo();
+//						System.out.println(s);
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+						onNode = false;
 					}
-					onNode = false;
+					else{
+						try {
+							doSpeak("No in edges");
+						} catch (EngineException e1) {
+							// Auto-generated catch block
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							// Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							// Auto-generated catch block
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							// Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
 				}
 				else{
 					onNode =  true;
 					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
 					graphs.get(currGr).setCurrNode(currEdges.get(currEdge).start);
 					graphs.get(currGr).getCurrNode().setSel(true);
-					System.out.println(graphs.get(currGr).getCurrNode());
+//					System.out.println(graphs.get(currGr).getCurrNode());
 					try {
 						doSpeak(graphs.get(currGr).getCurrNode().toString());
 					} catch (EngineException e1) {
@@ -420,31 +509,50 @@ public class Display extends JFrame implements  KeyListener{
 			}
 			if(e.getKeyCode() == KeyEvent.VK_KP_DOWN || e.getKeyCode() == KeyEvent.VK_DOWN){
 				if(onNode){
-					graphs.get(currGr).getCurrNode().setSel(false);
-					currEdges = graphs.get(currGr).getCurrNode().getOutEdges();
-					currEdge = 0;
-					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
-					String s = edgeInfo();
-					System.out.println(s);
-					try {
-						doSpeak(s);
-					} catch (EngineException e1) {
-						e1.printStackTrace();
-					} catch (AudioException e1) {
-						e1.printStackTrace();
-					} catch (IllegalArgumentException e1) {
-						e1.printStackTrace();
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
+					if(graphs.get(currGr).getCurrNode().getOutEdges().size()>0){
+						graphs.get(currGr).getCurrNode().setSel(false);
+						currEdges = graphs.get(currGr).getCurrNode().getOutEdges();
+						currEdge = 0;
+						graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
+						String s = edgeInfo();
+//						System.out.println(s);
+						try {
+							doSpeak(s);
+						} catch (EngineException e1) {
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+						onNode = false;
 					}
-					onNode = false;
+					else{
+						try {
+							doSpeak("No out edges");
+						} catch (EngineException e1) {
+							// Auto-generated catch block
+							e1.printStackTrace();
+						} catch (AudioException e1) {
+							// Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IllegalArgumentException e1) {
+							// Auto-generated catch block
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							// Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
 				}
 				else{
 					onNode =  true;
 					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
 					graphs.get(currGr).setCurrNode(currEdges.get(currEdge).end);
 					graphs.get(currGr).getCurrNode().setSel(true);
-					System.out.println(graphs.get(currGr).getCurrNode());
+//					System.out.println(graphs.get(currGr).getCurrNode());
 					try {
 						doSpeak(graphs.get(currGr).getCurrNode().toString());
 					} catch (EngineException e1) {
@@ -504,6 +612,21 @@ public class Display extends JFrame implements  KeyListener{
 			}
 			if(e.getKeyCode() == KeyEvent.VK_D){
 				dynamic = !dynamic;
+				String s = "";
+				if(dynamic){
+					s = "Dynamic On";
+				}
+				else{
+					s = "Dynamic Off";
+				}
+				
+				try {
+					writer.write(s);
+					writer.newLine();
+				} catch (IOException e1) {
+					// Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			if(e.getKeyCode() == KeyEvent.VK_1){
 				setUpGraphs(1);
@@ -527,7 +650,7 @@ public class Display extends JFrame implements  KeyListener{
 				searchMode = true;
 				String s = "Type the name of the node you want to jump to and press enter";
 				search="";
-				System.out.println(s);
+//				System.out.println(s);
 				try {
 					doSpeak(s);
 				} catch (EngineException e1) {
@@ -556,11 +679,17 @@ public class Display extends JFrame implements  KeyListener{
 				for(int i = 0; i<graphs.get(currGr).nodes.size(); i++){
 					if(graphs.get(currGr).nodes.get(i).getName().contains(search)){
 						found = true;
-						graphs.get(currGr).getCurrNode().setSel(false);
+						if(onNode){
+							graphs.get(currGr).getCurrNode().setSel(false);
+						}
+						else{
+							graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
+							onNode = true;
+						}
 						graphs.get(currGr).setCurrNode(graphs.get(currGr).nodes.get(i));
 						graphs.get(currGr).getCurrNode().setSel(true);
 						String s = graphs.get(currGr).getCurrNode().toString();
-						System.out.println(s);
+//						System.out.println(s);
 						try {
 							doSpeak(s);
 						} catch (EngineException e1) {
@@ -581,7 +710,7 @@ public class Display extends JFrame implements  KeyListener{
 				}
 				if(!found){
 					String s = "No node with name: "+search;
-					System.out.println(s);
+//					System.out.println(s);
 					try {
 						doSpeak(s);
 					} catch (EngineException e1) {
@@ -603,6 +732,7 @@ public class Display extends JFrame implements  KeyListener{
 		}
 		currGraph.repaint();
 	}
+	
 	/*
 	 * Returns string w/ edge name and location in edge list (index start at 1)
 	 */
@@ -642,13 +772,23 @@ public class Display extends JFrame implements  KeyListener{
 	public void terminate() throws EngineException, EngineStateError {
 		synthesizer.deallocate();
 	}
-
+	/*
+	 * Speaks the provided statement and logs in in log.txt
+	 */
 	public void doSpeak(String speakText) 
 			throws EngineException, AudioException, IllegalArgumentException, 
 			InterruptedException 
 	{
 		synthesizer.speakPlainText(speakText, null);
-
+		try {
+			System.out.println(speakText);
+			writer.write(speakText);
+			writer.newLine();;
+			writer.flush();
+		} catch (IOException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
