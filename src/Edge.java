@@ -70,7 +70,7 @@ public class Edge extends JComponent{
 	public String toString(){
 		String s = "Edge "+start.name + " " + end.name;
 		if(weight != 0){
-			s += ". weight: "+weight;
+			s += ". weight: " + weight + ".";
 		}
 		return s;
 	}
@@ -92,9 +92,15 @@ public class Edge extends JComponent{
 			}
 			g2.drawLine((int)(scaleFactor*startX), (int)(scaleFactor*startY), (int)(scaleFactor*endX), (int)(scaleFactor*endY));
 			if(weight != 0){
-				g2.setFont(new Font("Arial",Font.BOLD, (int)(scaleFactor*32)));
+				if(sel){
+					g2.setColor(Color.RED);
+				}
+				else{
+					g2.setColor(Color.BLUE);
+				}
+				g2.setFont(new Font("Arial",Font.PLAIN, (int)(scaleFactor*28)));
 				String s = ""+weight;
-				g2.drawString(s, (int)(scaleFactor*(startX+endX)/2), (int)(scaleFactor*((startY+endY)/2 + 15)));
+				g2.drawString(s, (int)(scaleFactor*((startX+endX)/2+15)), (int)(scaleFactor*((startY+endY)/2+25)));
 			}	
 		}
 	}

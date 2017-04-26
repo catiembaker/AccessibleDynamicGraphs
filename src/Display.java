@@ -47,6 +47,7 @@ public class Display extends JFrame implements  KeyListener{
 	public File file;
 	public BufferedWriter writer;
 	public double scaleFactor;
+	public boolean out;
 
 	public Display(){
 		setTitle("Graph");
@@ -59,7 +60,7 @@ public class Display extends JFrame implements  KeyListener{
 		else{
 			scaleFactor = (width/1500.0)*.75;
 		}
-		System.out.println(scaleFactor);
+//		System.out.println(scaleFactor);
 		setSize((int)(1500*scaleFactor),(int)(1500*scaleFactor));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		graphs = new ArrayList<Graph>();
@@ -93,6 +94,8 @@ public class Display extends JFrame implements  KeyListener{
 	public void setUpGraphs(int taskNum){
 		Graph g1 = new Graph(scaleFactor);
 		Graph g2 = new Graph(scaleFactor);
+		g1.clear();
+		g2.clear();
 		if(taskNum == 1){
 			g1.load1a();
 			g1.setCurrNode(g1.nodes.get(0));
@@ -159,6 +162,28 @@ public class Display extends JFrame implements  KeyListener{
 			graphs.add(g1);
 			graphs.add(g2);
 		}
+		else if(taskNum == 7){
+			g1.loadGraph1();
+			g1.setCurrNode(g1.nodes.get(0));
+			g1.getCurrNode().setSel(true);
+			g2.loadGraph2();
+			g2.setCurrNode(g2.nodes.get(0));
+			g2.getCurrNode().setSel(true);
+			graphs.clear();
+			graphs.add(g1);
+			graphs.add(g2);
+		}
+		else if(taskNum == 8){
+			g1.load8a();
+			g1.setCurrNode(g1.nodes.get(0));
+			g1.getCurrNode().setSel(true);
+			g2.load8b();
+			g2.setCurrNode(g2.nodes.get(0));
+			g2.getCurrNode().setSel(true);
+			graphs.clear();
+			graphs.add(g1);
+			graphs.add(g2);
+		}
 		//String s = "Task "+taskNum;
 		try {
 			writer.write("Task "+taskNum);
@@ -172,15 +197,13 @@ public class Display extends JFrame implements  KeyListener{
 		currGr = 0;
 		currGraph = graphs.get(currGr);
 		add(g1);
-		System.out.println("before");
 		graphs.get(currGr).repaint();
-		System.out.println("after");
 //		currGraph.repaint();
 //		onNode = true;
 		requestFocusInWindow();
 		try {
 			String s = "Graph "+(currGr+1)+" of "+graphs.size() + ". ";
-			s += graphs.get(currGr).nodes.size() +" Nodes and " + graphs.get(currGr).edges.size() + " Edges";
+			s += graphs.get(currGr).nodes.size() +" Nodes and " + graphs.get(currGr).edges.size() + " Edges. ";
 			s += " Current "+graphs.get(currGr).getCurrNode().toString();
 			doSpeak(s);
 		} catch (EngineException e) {
@@ -200,6 +223,7 @@ public class Display extends JFrame implements  KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+//		if(synthesizer.getEngineState()==synthesizer.QUEUE_NOT_EMPTY){
 		synthesizer.cancel();
 		if(!searchMode){
 			if(e.getKeyCode() == KeyEvent.VK_KP_LEFT || e.getKeyCode() == KeyEvent.VK_LEFT){
@@ -231,7 +255,7 @@ public class Display extends JFrame implements  KeyListener{
 						if(currGr != 0 && graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc())!=null){
 							//get the node in the same loc in the past graph
 //							System.out.println("To Past in dynamic");
-							graphs.get(currGr).getCurrNode().setSel(false);
+							graphs.get(currGr-1).getCurrNode().setSel(false);
 							graphs.get(currGr-1).setCurrNode(graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 							currGr--;
 							graphs.get(currGr).getCurrNode().setSel(true);
@@ -351,7 +375,8 @@ public class Display extends JFrame implements  KeyListener{
 						if(currGr != graphs.size()-1 && graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc())!=null){
 							//Get the node at the same loc in the future
 //							System.out.println("Dynamic in future");
-							graphs.get(currGr).getCurrNode().setSel(false);
+//							graphs.get(currGr).getCurrNode().setSel(false);
+							graphs.get(currGr+1).getCurrNode().setSel(false);
 							graphs.get(currGr+1).setCurrNode(graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 							currGr++;
 							graphs.get(currGr).getCurrNode().setSel(true);
@@ -451,6 +476,7 @@ public class Display extends JFrame implements  KeyListener{
 			if(e.getKeyCode() == KeyEvent.VK_KP_UP || e.getKeyCode() == KeyEvent.VK_UP){
 				if(onNode){
 					if(graphs.get(currGr).getCurrNode().getInEdges().size()>0){
+						out = false;
 						currEdges = graphs.get(currGr).getCurrNode().getInEdges();
 						graphs.get(currGr).getCurrNode().setSel(false);
 						currEdge = 0;
@@ -510,6 +536,7 @@ public class Display extends JFrame implements  KeyListener{
 			if(e.getKeyCode() == KeyEvent.VK_KP_DOWN || e.getKeyCode() == KeyEvent.VK_DOWN){
 				if(onNode){
 					if(graphs.get(currGr).getCurrNode().getOutEdges().size()>0){
+						out = true;
 						graphs.get(currGr).getCurrNode().setSel(false);
 						currEdges = graphs.get(currGr).getCurrNode().getOutEdges();
 						currEdge = 0;
@@ -614,37 +641,50 @@ public class Display extends JFrame implements  KeyListener{
 				dynamic = !dynamic;
 				String s = "";
 				if(dynamic){
-					s = "Dynamic On";
+					s = "Spatial Location Mode";
 				}
 				else{
-					s = "Dynamic Off";
+					s = "Previous Location Mode";
 				}
-				
 				try {
-					writer.write(s);
-					writer.newLine();
-				} catch (IOException e1) {
+					doSpeak(s);
+				} catch (EngineException e1) {
+					// Auto-generated catch block
+					e1.printStackTrace();
+				} catch (AudioException e1) {
+					// Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalArgumentException e1) {
+					// Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
 					// Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
-			if(e.getKeyCode() == KeyEvent.VK_1){
+			if(e.getKeyCode() == KeyEvent.VK_1 || e.getKeyCode() == KeyEvent.VK_NUMPAD1){
 				setUpGraphs(1);
 			}
-			if(e.getKeyCode() == KeyEvent.VK_2){
+			if(e.getKeyCode() == KeyEvent.VK_2 || e.getKeyCode() == KeyEvent.VK_NUMPAD2){
 				setUpGraphs(2);
 			}
-			if(e.getKeyCode() == KeyEvent.VK_3){
+			if(e.getKeyCode() == KeyEvent.VK_3 || e.getKeyCode() == KeyEvent.VK_NUMPAD3){
 				setUpGraphs(3);
 			}
-			if(e.getKeyCode() == KeyEvent.VK_4){
+			if(e.getKeyCode() == KeyEvent.VK_4 || e.getKeyCode() == KeyEvent.VK_NUMPAD4){
 				setUpGraphs(4);
 			}
-			if(e.getKeyCode() == KeyEvent.VK_5){
+			if(e.getKeyCode() == KeyEvent.VK_5 || e.getKeyCode() == KeyEvent.VK_NUMPAD5){
 				setUpGraphs(5);
 			}
-			if(e.getKeyCode() == KeyEvent.VK_6){
+			if(e.getKeyCode() == KeyEvent.VK_6 || e.getKeyCode() == KeyEvent.VK_NUMPAD6){
 				setUpGraphs(6);
+			}
+			if(e.getKeyCode() == KeyEvent.VK_7 || e.getKeyCode() == KeyEvent.VK_NUMPAD7){
+				setUpGraphs(7);
+			}
+			if(e.getKeyCode() == KeyEvent.VK_8 || e.getKeyCode() == KeyEvent.VK_NUMPAD8){
+				setUpGraphs(8);
 			}
 			if(e.getKeyCode() == KeyEvent.VK_F && e.isControlDown()){
 				searchMode = true;
@@ -730,7 +770,9 @@ public class Display extends JFrame implements  KeyListener{
 				search = "";
 			}
 		}
-		currGraph.repaint();
+		if(currGraph != null){
+			currGraph.repaint();
+		}
 	}
 	
 	/*
@@ -738,6 +780,12 @@ public class Display extends JFrame implements  KeyListener{
 	 */
 	public String edgeInfo(){
 		String s = currEdges.get(currEdge).toString() + " " + (currEdge+1) + " of "+currEdges.size();
+		if(out){
+			s += " out edges.";
+		}
+		else{
+			s += " in edges.";
+		}
 		return s;
 	}
 	public void init(String voiceName) 
@@ -802,6 +850,9 @@ public class Display extends JFrame implements  KeyListener{
 		if(searchMode && (Character.isLetterOrDigit(e.getKeyChar()) || Character.isWhitespace(e.getKeyChar()))){
 //			System.out.println(e.getKeyChar());
 			search += e.getKeyChar();
+		}
+		else if(!searchMode){
+			
 		}
 	}
 
