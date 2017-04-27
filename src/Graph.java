@@ -949,7 +949,7 @@ public class Graph extends JPanel{
 		nA.addOutEdge(nAnC);
 		nC.addOutEdge(nCnA);
 		nA.addInEdge(nCnA);
-		nE.addInEdge(nAnC);
+		nC.addInEdge(nAnC);
 		rep.put(nAnC, nAnC);
 		rep.put(nCnA, nAnC);
 		
@@ -1059,7 +1059,7 @@ public class Graph extends JPanel{
 		nA.addOutEdge(nAnC);
 		nC.addOutEdge(nCnA);
 		nA.addInEdge(nCnA);
-		nE.addInEdge(nAnC);
+		nC.addInEdge(nAnC);
 		rep.put(nAnC, nAnC);
 		rep.put(nCnA, nAnC);
 		
