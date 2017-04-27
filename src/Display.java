@@ -63,6 +63,7 @@ public class Display extends JFrame implements  KeyListener{
 //		System.out.println(scaleFactor);
 		setSize((int)(1500*scaleFactor),(int)(1500*scaleFactor));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setFocusTraversalKeysEnabled(false);
 		graphs = new ArrayList<Graph>();
 		search = "";
 		file = new File("log.txt");
@@ -707,7 +708,41 @@ public class Display extends JFrame implements  KeyListener{
 					e1.printStackTrace();
 				}
 			}
-			
+			if(e.getKeyCode() == KeyEvent.VK_TAB && !e.isShiftDown()){
+				int index = graphs.get(currGr).nodes.indexOf(graphs.get(currGr).getCurrNode());
+//				System.out.println(index);
+				graphs.get(currGr).getCurrNode().setSel(false);
+				graphs.get(currGr).setCurrNode(graphs.get(currGr).nodes.get((index+1)%graphs.get(currGr).nodes.size()));
+				graphs.get(currGr).getCurrNode().setSel(true);
+				try {
+					doSpeak(graphs.get(currGr).getCurrNode().toString());
+				} catch (EngineException e1) {
+					e1.printStackTrace();
+				} catch (AudioException e1) {
+					e1.printStackTrace();
+				} catch (IllegalArgumentException e1) {
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if(e.getKeyCode() == KeyEvent.VK_TAB && e.isShiftDown()){
+				int index = graphs.get(currGr).nodes.indexOf(graphs.get(currGr).getCurrNode());
+				graphs.get(currGr).getCurrNode().setSel(false);
+				graphs.get(currGr).setCurrNode(graphs.get(currGr).nodes.get((index-1+graphs.get(currGr).nodes.size())%graphs.get(currGr).nodes.size()));
+				graphs.get(currGr).getCurrNode().setSel(true);
+				try {
+					doSpeak(graphs.get(currGr).getCurrNode().toString());
+				} catch (EngineException e1) {
+					e1.printStackTrace();
+				} catch (AudioException e1) {
+					e1.printStackTrace();
+				} catch (IllegalArgumentException e1) {
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
 		}
 		else{
 			if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
@@ -717,7 +752,7 @@ public class Display extends JFrame implements  KeyListener{
 				searchMode = false;
 				boolean found = false;
 				for(int i = 0; i<graphs.get(currGr).nodes.size(); i++){
-					if(graphs.get(currGr).nodes.get(i).getName().contains(search)){
+					if(graphs.get(currGr).nodes.get(i).getSearchName().contains(search)){
 						found = true;
 						if(onNode){
 							graphs.get(currGr).getCurrNode().setSel(false);

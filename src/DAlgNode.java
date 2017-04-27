@@ -22,8 +22,8 @@ public class DAlgNode extends Node{
 	
 	public String toString(){
 		String s = "Node "+name;
-		s += " Value is "+dist;
-		s += " "+inEdges.size() + " in edges and " + outEdges.size() + " out edges.";
+		s += ". Value is "+dist;
+		s += ". "+inEdges.size() + " edges.";
 		return s;
 	}
 	

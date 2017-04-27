@@ -77,16 +77,16 @@ public class Graph extends JPanel{
 	public void loadGraph1(){
 		directed = false;
 		
-		Node a = new Node(500,250,"A",1);
+		Node a = new Node(500,250,"A",1,"A");
 		nodes.add(a);
 		map.put(1, a);
-		Node b = new Node(250,700,"B",2);
+		Node b = new Node(250,700,"B",2,"B");
 		nodes.add(b);
 		map.put(2, b);
-		Node c = new Node(750,700,"C",3);
+		Node c = new Node(750,700,"C",3,"C");
 		nodes.add(c);
 		map.put(3, c);
-		Node d = new Node(500,1150,"D",4);
+		Node d = new Node(500,1150,"D",4,"D");
 		map.put(4, d);
 		nodes.add(d);
 		
@@ -132,21 +132,25 @@ public class Graph extends JPanel{
 		
 		d.addInEdge(bd);
 		d.addOutEdge(db);
+		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 		
 	}
 	public void loadGraph2(){
 		directed = false;
 		
-		Node a = new Node(500,250,"A",1);
+		Node a = new Node(500,250,"A",1,"A");
 		nodes.add(a);
 		map.put(1, a);
-		Node b = new Node(250,700,"D",2);
+		Node b = new Node(250,700,"D",2,"D");
 		nodes.add(b);
 		map.put(2, b);
-		Node c = new Node(750,700,"C",3);
+		Node c = new Node(750,700,"C",3,"C");
 		nodes.add(c);
 		map.put(3, c);
-		Node d = new Node(500,1150,"B",4);
+		Node d = new Node(500,1150,"B",4,"B");
 		map.put(4, d);
 		nodes.add(d);
 		
@@ -193,52 +197,56 @@ public class Graph extends JPanel{
 		d.addInEdge(bd);
 		d.addOutEdge(db);
 		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	
 	public void load1a(){
-		Node n1 = new Node(600,150,"15",1);
+		directed = true;
+		Node n1 = new Node(600,150,"15",1,"fifteen");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"10",2);
+		Node n2 = new Node(300,450,"10",2,"ten");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"20",3);
+		Node n3 = new Node(900,450,"20",3,"twenty");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"5",4);
+		Node n4 = new Node(150,750,"5",4,"5");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"13",5);
+		Node n5 = new Node(450,750,"13",5,"thirteen");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"18",6);
+		Node n6 = new Node(750,750,"18",6,"eighteen");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"23",7);
+		Node n7 = new Node(1050,750,"23",7,"twenty three");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"1",8);
+		Node n8 = new Node(75,1050,"1",8,"one");
 		nodes.add(n8);
 		map.put(8, n8);
 //		Node n9 = new Node(75,1050,"8",9);
 //		nodes.add(n9);
 //		map.put(9, n9);
-		Node n10 = new Node(375,1050,"12",10);
+		Node n10 = new Node(375,1050,"12",10,"twelve");
 		nodes.add(n10);
 		map.put(10, n10);
-		Node n11 = new Node(525,1050,"14",11);
+		Node n11 = new Node(525,1050,"14",11,"fourteen");
 		nodes.add(n11);
 		map.put(11, n11);
-		Node n12 = new Node(675,1050,"17",12);
+		Node n12 = new Node(675,1050,"17",12,"seventeen");
 		nodes.add(n12);
 		map.put(12, n12);
-		Node n13 = new Node(825,1050,"19",13);
+		Node n13 = new Node(825,1050,"19",13,"nineteen");
 		nodes.add(n13);
 		map.put(13, n13);
-		Node n14 = new Node(975,1050,"21",14);
+		Node n14 = new Node(975,1050,"21",14,"twenty one");
 		nodes.add(n14);
 		map.put(14, n14);
-		Node n15 = new Node(1125,1050,"25",15);
+		Node n15 = new Node(1125,1050,"25",15, "twenty five");
 		nodes.add(n15);
 		map.put(15, n15);
 		
@@ -319,45 +327,49 @@ public class Graph extends JPanel{
 		n7.addOutEdge(n7n15);
 		n15.addInEdge(n7n15);
 		rep.put(n7n15, n7n15);
-				
+			
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 		
 	}
 	
 	public void load1b(){
-		Node n1 = new Node(600,150,"15",1);
+		directed = true;
+		Node n1 = new Node(600,150,"15",1,"fifteen");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"5",2);
+		Node n2 = new Node(300,450,"5",2,"five");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"20",3);
+		Node n3 = new Node(900,450,"20",3,"twenty");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n5 = new Node(450,750,"13",5);
+		Node n5 = new Node(450,750,"13",5,"thirteen");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"18",6);
+		Node n6 = new Node(750,750,"18",6,"eighteen");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"23",7);
+		Node n7 = new Node(1050,750,"23",7,"twenty three");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n10 = new Node(375,1050,"12",10);
+		Node n10 = new Node(375,1050,"12",10,"twelve");
 		nodes.add(n10);
 		map.put(10, n10);
-		Node n11 = new Node(525,1050,"14",11);
+		Node n11 = new Node(525,1050,"14",11,"fourteen");
 		nodes.add(n11);
 		map.put(11, n11);
-		Node n12 = new Node(675,1050,"17",12);
+		Node n12 = new Node(675,1050,"17",12,"seventeen");
 		nodes.add(n12);
 		map.put(12, n12);
-		Node n13 = new Node(825,1050,"19",13);
+		Node n13 = new Node(825,1050,"19",13,"nineteen");
 		nodes.add(n13);
 		map.put(13, n13);
-		Node n14 = new Node(975,1050,"21",14);
+		Node n14 = new Node(975,1050,"21",14,"twenty one");
 		nodes.add(n14);
 		map.put(14, n14);
-		Node n15 = new Node(1125,1050,"25",15);
+		Node n15 = new Node(1125,1050,"25",15,"twenty five");
 		nodes.add(n15);
 		map.put(15, n15);
 		
@@ -428,53 +440,56 @@ public class Graph extends JPanel{
 		n15.addInEdge(n7n15);
 		rep.put(n7n15, n7n15);
 				
-		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	
 	public void load2a(){
-		Node n1 = new Node(600,150,"33",1);
+		directed = true;
+		Node n1 = new Node(600,150,"33",1, "thirty three");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"18",2);
+		Node n2 = new Node(300,450,"18",2, "eighteen");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"79",3);
+		Node n3 = new Node(900,450,"79",3,"seventy nine");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"12",4);
+		Node n4 = new Node(150,750,"12",4, "twelve");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"22",5);
+		Node n5 = new Node(450,750,"22",5, "twenty two");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"65",6);
+		Node n6 = new Node(750,750,"65",6, "sixty five");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"91",7);
+		Node n7 = new Node(1050,750,"91",7, "ninety one");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"7",8);
+		Node n8 = new Node(75,1050,"7",8, "seven");
 		nodes.add(n8);
 		map.put(8, n8);
-		Node n9 = new Node(225,1050,"16",9);
+		Node n9 = new Node(225,1050,"16",9, "sixteen");
 		nodes.add(n9);
 		map.put(9, n9);
-		Node n10 = new Node(375,1050,"19",10);
+		Node n10 = new Node(375,1050,"19",10, "nineteen");
 		nodes.add(n10);
 		map.put(10, n10);
-		Node n11 = new Node(525,1050,"31",11);
+		Node n11 = new Node(525,1050,"31",11, "thirty one");
 		nodes.add(n11);
 		map.put(11, n11);
-		Node n12 = new Node(675,1050,"43",12);
+		Node n12 = new Node(675,1050,"43",12, "forty three");
 		nodes.add(n12);
 		map.put(12, n12);
-		Node n13 = new Node(825,1050,"68",13);
+		Node n13 = new Node(825,1050,"68",13, "sixty eight");
 		nodes.add(n13);
 		map.put(13, n13);
-		Node n14 = new Node(975,1050,"82",14);
+		Node n14 = new Node(975,1050,"82",14, "eighty two");
 		nodes.add(n14);
 		map.put(14, n14);
-		Node n15 = new Node(1125,1050,"97",15);
+		Node n15 = new Node(1125,1050,"97",15, "ninety seven");
 		nodes.add(n15);
 		map.put(15, n15);
 		
@@ -561,51 +576,56 @@ public class Graph extends JPanel{
 		n7.addOutEdge(n7n15);
 		n15.addInEdge(n7n15);
 		rep.put(n7n15, n7n15);
+		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	public void load2b(){
-		Node n1 = new Node(600,150,"33",1);
+		directed = true;
+		Node n1 = new Node(600,150,"33",1, "thirty three");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"18",2);
+		Node n2 = new Node(300,450,"18",2, "eighteen");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"68",3);
+		Node n3 = new Node(900,450,"68",3,"sixty eight");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"12",4);
+		Node n4 = new Node(150,750,"12",4,"twelve");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"22",5);
+		Node n5 = new Node(450,750,"22",5,"twenty two");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"65",6);
+		Node n6 = new Node(750,750,"65",6, "sixty five");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"91",7);
+		Node n7 = new Node(1050,750,"91",7, "ninety one");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"7",8);
+		Node n8 = new Node(75,1050,"7",8,"seven");
 		nodes.add(n8);
 		map.put(8, n8);
-		Node n9 = new Node(225,1050,"16",9);
+		Node n9 = new Node(225,1050,"16",9, "sixteen");
 		nodes.add(n9);
 		map.put(9, n9);
-		Node n10 = new Node(375,1050,"19",10);
+		Node n10 = new Node(375,1050,"19",10,"nineteen");
 		nodes.add(n10);
 		map.put(10, n10);
-		Node n11 = new Node(525,1050,"31",11);
+		Node n11 = new Node(525,1050,"31",11,"thirty one");
 		nodes.add(n11);
 		map.put(11, n11);
-		Node n12 = new Node(675,1050,"43",12);
+		Node n12 = new Node(675,1050,"43",12, "forty three");
 		nodes.add(n12);
 		map.put(12, n12);
-		Node n13 = new Node(825,1050,"68",13);
+		Node n13 = new Node(825,1050,"68",13, "sixty eight");
 		nodes.add(n13);
 		map.put(13, n13);
-		Node n14 = new Node(975,1050,"82",14);
+		Node n14 = new Node(975,1050,"82",14, "eighty two");
 		nodes.add(n14);
 		map.put(14, n14);
-		Node n15 = new Node(1125,1050,"97",15);
+		Node n15 = new Node(1125,1050,"97",15, "ninety seven");
 		nodes.add(n15);
 		map.put(15, n15);
 		
@@ -692,8 +712,13 @@ public class Graph extends JPanel{
 		n7.addOutEdge(n7n15);
 		n15.addInEdge(n7n15);
 		rep.put(n7n15, n7n15);
+		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	public void load3a(){
+		directed = false;
 		DAlgNode nF = new DAlgNode(999,600,200,"Fred",1);
 		nodes.add(nF);
 		map.put(1, nF);
@@ -802,8 +827,13 @@ public class Graph extends JPanel{
 		nE.addInEdge(nFnE);
 		rep.put(nEnF, nFnE);
 		rep.put(nFnE, nFnE);
+		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	public void load3b(){
+		directed = false;
 		DAlgNode nF = new DAlgNode(999,600,200,"Fred",1);
 		nodes.add(nF);
 		map.put(1, nF);
@@ -912,8 +942,13 @@ public class Graph extends JPanel{
 		nE.addInEdge(nFnE);
 		rep.put(nEnF, nFnE);
 		rep.put(nFnE, nFnE);
+		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	public void load4a(){
+		directed = false;
 		DAlgNode nA = new DAlgNode(999,600,300,"ape",1);
 		nodes.add(nA);
 		map.put(1, nA);
@@ -1022,8 +1057,13 @@ public class Graph extends JPanel{
 		nE.addInEdge(nFnE);
 		rep.put(nEnF, nFnE);
 		rep.put(nFnE, nFnE);
+		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	public void load4b(){
+		directed = false;
 		DAlgNode nA = new DAlgNode(999,600,300,"ape",1);
 		nodes.add(nA);
 		map.put(1, nA);
@@ -1132,45 +1172,50 @@ public class Graph extends JPanel{
 		nE.addInEdge(nFnE);
 		rep.put(nEnF, nFnE);
 		rep.put(nFnE, nFnE);
+		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	public void load5a(){
-		Node n1 = new Node(600,150,"25",1);
+		directed = true;
+		Node n1 = new Node(600,150,"25",1, "twenty five");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"62",2);
+		Node n2 = new Node(300,450,"62",2, "sixty two");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"34",3);
+		Node n3 = new Node(900,450,"34",3, "thirty four");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"86",4);
+		Node n4 = new Node(150,750,"86",4, "eighty six");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"24",5);
+		Node n5 = new Node(450,750,"24",5, "twenty four");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"44",6);
+		Node n6 = new Node(750,750,"44",6, "forty four");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"88",7);
+		Node n7 = new Node(1050,750,"88",7, "eighty eight");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"1",8);
+		Node n8 = new Node(75,1050,"1",8,"one");
 		nodes.add(n8);
 		map.put(8, n8);
-		Node n9 = new Node(225,1050,"23",9);
+		Node n9 = new Node(225,1050,"23",9,"twenty three");
 		nodes.add(n9);
 		map.put(9, n9);
-		Node n10 = new Node(375,1050,"84",10);
+		Node n10 = new Node(375,1050,"84",10,"eighty four");
 		nodes.add(n10);
 		map.put(10, n10);
-		Node n11 = new Node(525,1050,"34",11);
+		Node n11 = new Node(525,1050,"34",11,"thirty four");
 		nodes.add(n11);
 		map.put(11, n11);
-		Node n12 = new Node(675,1050,"90",12);
+		Node n12 = new Node(675,1050,"90",12,"ninety");
 		nodes.add(n12);
 		map.put(12, n12);
-		Node n13 = new Node(825,1050,"36",13);
+		Node n13 = new Node(825,1050,"36",13,"thirty six");
 		nodes.add(n13);
 		map.put(13, n13);
 
@@ -1247,48 +1292,52 @@ public class Graph extends JPanel{
 		n13.addInEdge(n6n13);
 		rep.put(n6n13, n6n13);
 		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	public void load5b(){
-		Node n1 = new Node(600,150,"25",1);
+		directed = true;
+		Node n1 = new Node(600,150,"25",1,"twenty five");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"86",2);
+		Node n2 = new Node(300,450,"86",2,"eighty six");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"34",3);
+		Node n3 = new Node(900,450,"34",3,"thirty four");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"62",4);
+		Node n4 = new Node(150,750,"62",4,"sixty two");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"24",5);
+		Node n5 = new Node(450,750,"24",5,"twenty four");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"7",6);
+		Node n6 = new Node(750,750,"7",6,"seven");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"88",7);
+		Node n7 = new Node(1050,750,"88",7,"eighty eight");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"1",8);
+		Node n8 = new Node(75,1050,"1",8,"one");
 		nodes.add(n8);
 		map.put(8, n8);
-		Node n9 = new Node(225,1050,"23",9);
+		Node n9 = new Node(225,1050,"23",9,"twenty three");
 		nodes.add(n9);
 		map.put(9, n9);
-		Node n10 = new Node(375,1050,"84",10);
+		Node n10 = new Node(375,1050,"84",10,"eighty four");
 		nodes.add(n10);
 		map.put(10, n10);
-		Node n11 = new Node(525,1050,"34",11);
+		Node n11 = new Node(525,1050,"34",11,"thirty four");
 		nodes.add(n11);
 		map.put(11, n11);
-		Node n12 = new Node(675,1050,"90",12);
+		Node n12 = new Node(675,1050,"90",12,"ninety");
 		nodes.add(n12);
 		map.put(12, n12);
-		Node n13 = new Node(825,1050,"36",13);
+		Node n13 = new Node(825,1050,"36",13,"thirty six");
 		nodes.add(n13);
 		map.put(13, n13);
-		Node n14 = new Node(975,1050,"23",14);
+		Node n14 = new Node(975,1050,"23",14,"twenty three");
 		nodes.add(n14);
 		map.put(14, n14);
 
@@ -1371,46 +1420,49 @@ public class Graph extends JPanel{
 		n14.addInEdge(n7n14);
 		rep.put(n7n14, n7n14);
 		
-
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	public void load6a(){
-		Node n1 = new Node(600,150,"47",1);
+		directed = true;
+		Node n1 = new Node(600,150,"47",1,"forty seven");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"62",2);
+		Node n2 = new Node(300,450,"62",2, "sixty two");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"52",3);
+		Node n3 = new Node(900,450,"52",3,"fifty two");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"16",4);
+		Node n4 = new Node(150,750,"16",4,"sixteen");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"72",5);
+		Node n5 = new Node(450,750,"72",5,"seventy two");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"18",6);
+		Node n6 = new Node(750,750,"18",6,"eighteen");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"73",7);
+		Node n7 = new Node(1050,750,"73",7,"seventy three");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"78",8);
+		Node n8 = new Node(75,1050,"78",8,"seventy eight");
 		nodes.add(n8);
 		map.put(8, n8);
-		Node n9 = new Node(225,1050,"73",9);
+		Node n9 = new Node(225,1050,"73",9,"seventy three");
 		nodes.add(n9);
 		map.put(9, n9);
-		Node n12 = new Node(675,1050,"98",12);
+		Node n12 = new Node(675,1050,"98",12,"ninety eight");
 		nodes.add(n12);
 		map.put(12, n12);
-		Node n13 = new Node(825,1050,"47",13);
+		Node n13 = new Node(825,1050,"47",13,"forty seven");
 		nodes.add(n13);
 		map.put(13, n13);
-		Node n14 = new Node(975,1050,"5",14);
+		Node n14 = new Node(975,1050,"5",14,"five");
 		nodes.add(n14);
 		map.put(14, n14);
-		Node n15 = new Node(1125,1050,"6",15);
+		Node n15 = new Node(1125,1050,"6",15,"six");
 		nodes.add(n15);
 		map.put(15, n15);
 		
@@ -1485,48 +1537,53 @@ public class Graph extends JPanel{
 		n7.addOutEdge(n7n15);
 		n15.addInEdge(n7n15);
 		rep.put(n7n15, n7n15);
+		
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	public void load6b(){
-		Node n1 = new Node(600,150,"52",1);
+		directed = true;
+		Node n1 = new Node(600,150,"52",1,"fifty two");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"62",2);
+		Node n2 = new Node(300,450,"62",2, "sixty two");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"47",3);
+		Node n3 = new Node(900,450,"47",3,"forty seven");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"16",4);
+		Node n4 = new Node(150,750,"16",4,"sixteen");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"72",5);
+		Node n5 = new Node(450,750,"72",5,"seventy two");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"18",6);
+		Node n6 = new Node(750,750,"18",6,"eighteen");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"73",7);
+		Node n7 = new Node(1050,750,"73",7,"seventy three");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"19",8);
+		Node n8 = new Node(75,1050,"19",8,"nineteen");
 		nodes.add(n8);
 		map.put(8, n8);
-		Node n9 = new Node(225,1050,"73",9);
+		Node n9 = new Node(225,1050,"73",9,"seventy three");
 		nodes.add(n9);
 		map.put(9, n9);
-		Node n10 = new Node(375,1050,"29",10);
+		Node n10 = new Node(375,1050,"29",10,"twenty nine");
 		nodes.add(n10);
 		map.put(10, n10);
-		Node n12 = new Node(675,1050,"98",12);
+		Node n12 = new Node(675,1050,"98",12,"ninety eight");
 		nodes.add(n12);
 		map.put(12, n12);
-		Node n13 = new Node(825,1050,"47",13);
+		Node n13 = new Node(825,1050,"47",13,"forty seven");
 		nodes.add(n13);
 		map.put(13, n13);
-		Node n14 = new Node(975,1050,"5",14);
+		Node n14 = new Node(975,1050,"5",14,"five");
 		nodes.add(n14);
 		map.put(14, n14);
-		Node n15 = new Node(1125,1050,"6",15);
+		Node n15 = new Node(1125,1050,"6",15,"six");
 		nodes.add(n15);
 		map.put(15, n15);
 		
@@ -1607,6 +1664,9 @@ public class Graph extends JPanel{
 		n7.addOutEdge(n7n15);
 		n15.addInEdge(n7n15);
 		rep.put(n7n15, n7n15);
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(directed);
+		}
 	}
 	public void load8a(){
 		directed = false;
@@ -1668,6 +1728,9 @@ public class Graph extends JPanel{
 		d.addOutEdge(db);
 		d.addInEdge(cd);
 		d.addOutEdge(dc);
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(false);
+		}
 	}
 	public void load8b(){
 		directed = false;
@@ -1675,13 +1738,13 @@ public class Graph extends JPanel{
 		Node a = new Node(500,250,"W",1);
 		nodes.add(a);
 		map.put(1, a);
-		Node b = new Node(250,700,"Y",2);
+		Node b = new Node(250,700,"X",2);
 		nodes.add(b);
 		map.put(2, b);
-		Node c = new Node(750,700,"X",3);
+		Node c = new Node(750,700,"Z",3);
 		nodes.add(c);
 		map.put(3, c);
-		Node d = new Node(500,1150,"Z",4);
+		Node d = new Node(500,1150,"Y",4);
 		map.put(4, d);
 		nodes.add(d);
 		
@@ -1729,5 +1792,8 @@ public class Graph extends JPanel{
 		d.addOutEdge(db);
 		d.addInEdge(cd);
 		d.addOutEdge(dc);
+		for(int i = 0; i<nodes.size(); i++){
+			nodes.get(i).setDir(false);
+		}
 	}
 }

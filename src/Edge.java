@@ -68,7 +68,7 @@ public class Edge extends JComponent{
 	}
 	
 	public String toString(){
-		String s = "Edge "+start.name + " " + end.name + ".";
+		String s = "Edge "+start.getName() + " " + end.getName() + ".";
 		if(weight != 0){
 			s += " weight: " + weight + ".";
 		}
