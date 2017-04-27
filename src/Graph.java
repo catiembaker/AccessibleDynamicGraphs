@@ -1024,7 +1024,7 @@ public class Graph extends JPanel{
 		rep.put(nFnE, nFnE);
 	}
 	public void load4b(){
-		DAlgNode nA = new DAlgNode(7,600,300,"ape",1);
+		DAlgNode nA = new DAlgNode(999,600,300,"ape",1);
 		nodes.add(nA);
 		map.put(1, nA);
 		DAlgNode nB = new DAlgNode(6,200,600,"bat",2);
