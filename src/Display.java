@@ -33,6 +33,7 @@ import javax.swing.*;
 public class Display extends JFrame implements  KeyListener{
 	public ArrayList<Graph> graphs;
 	public ArrayList<Edge> currEdges;
+	public ArrayList<Node> currNodes;
 	public int currEdge;
 	public boolean onNode;
 	public int currGr;
@@ -67,6 +68,7 @@ public class Display extends JFrame implements  KeyListener{
 		graphs = new ArrayList<Graph>();
 		search = "";
 		file = new File("log.txt");
+		currNodes = new ArrayList<Node>();
 		try {
 			 writer = new BufferedWriter(new FileWriter(file));
 		} catch (IOException e) {
@@ -229,10 +231,15 @@ public class Display extends JFrame implements  KeyListener{
 		if(!searchMode){
 			if(e.getKeyCode() == KeyEvent.VK_KP_LEFT || e.getKeyCode() == KeyEvent.VK_LEFT){
 				if(!onNode && !e.isShiftDown()){
-					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
-					currEdge = (currEdge-1+currEdges.size())%currEdges.size();
-					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
-					String s = edgeInfo();
+					currEdge = (currEdge+1) % currEdges.size();
+					graphs.get(currGr).getCurrNode().setSel(false);
+					graphs.get(currGr).setCurrNode(currNodes.get(currEdge));
+					graphs.get(currGr).getCurrNode().setSel(true);
+					String s = nodeInfo();
+//					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
+//					currEdge = (currEdge-1+currEdges.size())%currEdges.size();
+//					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
+//					String s = edgeInfo();
 //					System.out.println(s);
 					try {
 						doSpeak(s);
@@ -349,10 +356,16 @@ public class Display extends JFrame implements  KeyListener{
 			}
 			if(e.getKeyCode() == KeyEvent.VK_KP_RIGHT || e.getKeyCode() == KeyEvent.VK_RIGHT){
 				if(!onNode && !e.isShiftDown()){
-					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
-					currEdge = (currEdge+1)%currEdges.size();
-					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
-					String s = edgeInfo();
+					currEdge = (currEdge-1+currEdges.size()) % currEdges.size();
+					graphs.get(currGr).getCurrNode().setSel(false);
+					graphs.get(currGr).setCurrNode(currNodes.get(currEdge));
+					graphs.get(currGr).getCurrNode().setSel(true);
+					String s = nodeInfo();
+					
+//					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
+//					currEdge = (currEdge+1)%currEdges.size();
+//					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
+//					String s = edgeInfo();
 //					System.out.println(s);
 					try {
 						doSpeak(s);
@@ -475,54 +488,24 @@ public class Display extends JFrame implements  KeyListener{
 				}
 			}
 			if(e.getKeyCode() == KeyEvent.VK_KP_UP || e.getKeyCode() == KeyEvent.VK_UP){
-				if(onNode){
-					if(graphs.get(currGr).getCurrNode().getInEdges().size()>0){
-						out = false;
-						currEdges = graphs.get(currGr).getCurrNode().getInEdges();
-						graphs.get(currGr).getCurrNode().setSel(false);
-						currEdge = 0;
-						graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
-						String s = edgeInfo();
-//						System.out.println(s);
-						try {
-							doSpeak(s);
-						} catch (EngineException e1) {
-							e1.printStackTrace();
-						} catch (AudioException e1) {
-							e1.printStackTrace();
-						} catch (IllegalArgumentException e1) {
-							e1.printStackTrace();
-						} catch (InterruptedException e1) {
-							e1.printStackTrace();
-						}
-						onNode = false;
+//				if(onNode){
+				if(graphs.get(currGr).getCurrNode().getInEdges().size()>0){
+					out = false;
+					currNodes.clear();
+					currEdges = graphs.get(currGr).getCurrNode().getInEdges();
+					for(int i = 0; i< currEdges.size(); i++){
+						currNodes.add(currEdges.get(i).start);
 					}
-					else{
-						try {
-							doSpeak("No in edges");
-						} catch (EngineException e1) {
-							// Auto-generated catch block
-							e1.printStackTrace();
-						} catch (AudioException e1) {
-							// Auto-generated catch block
-							e1.printStackTrace();
-						} catch (IllegalArgumentException e1) {
-							// Auto-generated catch block
-							e1.printStackTrace();
-						} catch (InterruptedException e1) {
-							// Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-				}
-				else{
-					onNode =  true;
-					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
+					graphs.get(currGr).getCurrNode().setSel(false);
+					currEdge = 0;
 					graphs.get(currGr).setCurrNode(currEdges.get(currEdge).start);
 					graphs.get(currGr).getCurrNode().setSel(true);
-//					System.out.println(graphs.get(currGr).getCurrNode());
+					//graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
+					//String s = edgeInfo();
+					//System.out.println(s);
+					String s = nodeInfo();
 					try {
-						doSpeak(graphs.get(currGr).getCurrNode().toString());
+						doSpeak(s);
 					} catch (EngineException e1) {
 						e1.printStackTrace();
 					} catch (AudioException e1) {
@@ -532,57 +515,64 @@ public class Display extends JFrame implements  KeyListener{
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-				}	
-			}
-			if(e.getKeyCode() == KeyEvent.VK_KP_DOWN || e.getKeyCode() == KeyEvent.VK_DOWN){
-				if(onNode){
-					if(graphs.get(currGr).getCurrNode().getOutEdges().size()>0){
-						out = true;
-						graphs.get(currGr).getCurrNode().setSel(false);
-						currEdges = graphs.get(currGr).getCurrNode().getOutEdges();
-						currEdge = 0;
-						graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
-						String s = edgeInfo();
-//						System.out.println(s);
-						try {
-							doSpeak(s);
-						} catch (EngineException e1) {
-							e1.printStackTrace();
-						} catch (AudioException e1) {
-							e1.printStackTrace();
-						} catch (IllegalArgumentException e1) {
-							e1.printStackTrace();
-						} catch (InterruptedException e1) {
-							e1.printStackTrace();
-						}
-						onNode = false;
-					}
-					else{
-						try {
-							doSpeak("No out edges");
-						} catch (EngineException e1) {
-							// Auto-generated catch block
-							e1.printStackTrace();
-						} catch (AudioException e1) {
-							// Auto-generated catch block
-							e1.printStackTrace();
-						} catch (IllegalArgumentException e1) {
-							// Auto-generated catch block
-							e1.printStackTrace();
-						} catch (InterruptedException e1) {
-							// Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
+//					onNode = true;
 				}
 				else{
-					onNode =  true;
-					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
+					try {
+						doSpeak("No in edges");
+					} catch (EngineException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					} catch (AudioException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IllegalArgumentException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+//				else{
+//					onNode =  true;
+//					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
+//					graphs.get(currGr).setCurrNode(currEdges.get(currEdge).start);
+//					graphs.get(currGr).getCurrNode().setSel(true);
+//					System.out.println(graphs.get(currGr).getCurrNode());
+//					try {
+//						doSpeak(graphs.get(currGr).getCurrNode().toString());
+//					} catch (EngineException e1) {
+//						e1.printStackTrace();
+//					} catch (AudioException e1) {
+//						e1.printStackTrace();
+//					} catch (IllegalArgumentException e1) {
+//						e1.printStackTrace();
+//					} catch (InterruptedException e1) {
+//						e1.printStackTrace();
+//					}
+//				}	
+			//}
+			if(e.getKeyCode() == KeyEvent.VK_KP_DOWN || e.getKeyCode() == KeyEvent.VK_DOWN){
+//				if(onNode){
+				if(graphs.get(currGr).getCurrNode().getOutEdges().size()>0){
+					out = true;
+					currNodes.clear();
+					graphs.get(currGr).getCurrNode().setSel(false);
+					currEdges = graphs.get(currGr).getCurrNode().getOutEdges();
+					for(int i = 0; i< currEdges.size(); i++){
+						currNodes.add(currEdges.get(i).end);
+//						System.out.println("Added: "+currEdges.get(i).end.toString());
+					}
+					currEdge = 0;
+//					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(true);
 					graphs.get(currGr).setCurrNode(currEdges.get(currEdge).end);
 					graphs.get(currGr).getCurrNode().setSel(true);
-//					System.out.println(graphs.get(currGr).getCurrNode());
+					String s = nodeInfo();
+					//						System.out.println(s);
 					try {
-						doSpeak(graphs.get(currGr).getCurrNode().toString());
+						doSpeak(s);
 					} catch (EngineException e1) {
 						e1.printStackTrace();
 					} catch (AudioException e1) {
@@ -592,17 +582,54 @@ public class Display extends JFrame implements  KeyListener{
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
+					onNode = false;
 				}
+				else{
+					try {
+						doSpeak("No out edges");
+					} catch (EngineException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					} catch (AudioException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IllegalArgumentException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+//				}
+//				else{
+//					onNode =  true;
+//					graphs.get(currGr).rep.get(currEdges.get(currEdge)).setSel(false);
+//					graphs.get(currGr).setCurrNode(currEdges.get(currEdge).end);
+//					graphs.get(currGr).getCurrNode().setSel(true);
+//					System.out.println(graphs.get(currGr).getCurrNode());
+//					try {
+//						doSpeak(graphs.get(currGr).getCurrNode().toString());
+//					} catch (EngineException e1) {
+//						e1.printStackTrace();
+//					} catch (AudioException e1) {
+//						e1.printStackTrace();
+//					} catch (IllegalArgumentException e1) {
+//						e1.printStackTrace();
+//					} catch (InterruptedException e1) {
+//						e1.printStackTrace();
+//					}
+//				}
 			}
 			if(e.getKeyCode() == KeyEvent.VK_R){
 				//Repeat current info
 				String s;
-				if(onNode){
+//				if(onNode){
 					s = graphs.get(currGr).getCurrNode().toString();
-				}
-				else{
-					s = edgeInfo();
-				}
+//				}
+//				else{
+//					s = edgeInfo();
+//				}
 				s += " Graph "+(currGr+1)+" of "+graphs.size();
 				try {
 					doSpeak(s);
@@ -810,6 +837,16 @@ public class Display extends JFrame implements  KeyListener{
 		}
 	}
 	
+	public String nodeInfo(){
+		String s = "";
+		s = graphs.get(currGr).getCurrNode().toString();
+		s += " Node " + (currEdge+1) + " of " + currNodes.size();
+		if(currEdges.get(currEdge).getWeight() != 0){
+			s += " Connected via edge of weight " + currEdges.get(currEdge).getWeight() + ".";
+		}
+		return s;
+	}
+	
 	/*
 	 * Returns string w/ edge name and location in edge list (index start at 1)
 	 */
@@ -862,6 +899,9 @@ public class Display extends JFrame implements  KeyListener{
 			throws EngineException, AudioException, IllegalArgumentException, 
 			InterruptedException 
 	{
+		
+		//getAccessibleContext().setAccessibleDescription(speakText);
+		//requestFocusInWindow();
 		synthesizer.speakPlainText(speakText, null);
 		try {
 			System.out.println(speakText);

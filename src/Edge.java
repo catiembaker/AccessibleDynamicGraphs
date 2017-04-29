@@ -67,6 +67,10 @@ public class Edge extends JComponent{
 		scaleFactor = sf;
 	}
 	
+	public int getWeight(){
+		return weight;
+	}
+	
 	public String toString(){
 		String s = "Edge "+start.getName() + " " + end.getName() + ".";
 		if(weight != 0){
