@@ -9,14 +9,14 @@ import java.awt.Graphics2D;
  */
 public class DAlgNode extends Node{
 
-	public int dist;
+	public String dist;
 	
-	public DAlgNode(int distance, int xPos, int yPos, String theName, int location){
+	public DAlgNode(String distance, int xPos, int yPos, String theName, int location){
 		super(xPos, yPos, theName, location);
 		dist=distance;
 	}
 	
-	public int getDistance(){
+	public String getDistance(){
 		return dist;
 	}
 	
