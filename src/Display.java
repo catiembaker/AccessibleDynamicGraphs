@@ -107,6 +107,11 @@ public class Display extends JFrame implements  KeyListener{
 		Graph g2 = new Graph(scaleFactor);
 		g1.clear();
 		g2.clear();
+		currNodes.get(0).clear();
+		currNodes.get(1).clear();
+		currEdges.set(0,null);
+		currEdges.set(1, null);
+		
 		if(taskNum == 1){
 			g1.load1a();
 			g1.setCurrNode(g1.nodes.get(0));

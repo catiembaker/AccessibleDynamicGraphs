@@ -1063,7 +1063,7 @@ public class Graph extends JPanel{
 		DAlgNode nF = new DAlgNode("inf",600,200,"Fred",1);
 		nodes.add(nF);
 		map.put(1, nF);
-		DAlgNode nC = new DAlgNode("99",250,600,"Cate",2);
+		DAlgNode nC = new DAlgNode("9",250,600,"Cate",2);
 		nodes.add(nC);
 		map.put(2, nC);
 		DAlgNode nD = new DAlgNode("2",600,600,"Dan",3);
