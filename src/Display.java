@@ -48,6 +48,7 @@ public class Display extends JFrame implements  KeyListener{
 	public double scaleFactor;
 	public ArrayList<Boolean> out;
 	public boolean voicing;
+	public ArrayList<Node> from;
 
 	public Display(){
 		setTitle("Graph");
@@ -67,6 +68,9 @@ public class Display extends JFrame implements  KeyListener{
 		out=new ArrayList<Boolean>();
 		out.add(false);
 		out.add(false);
+		from = new ArrayList<Node>();
+		from.add(null);
+		from.add(null);
 		setSize((int)(1500*scaleFactor),(int)(1500*scaleFactor));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setFocusTraversalKeysEnabled(false);
@@ -231,7 +235,7 @@ public class Display extends JFrame implements  KeyListener{
 		if(!searchMode){
 			if((e.getKeyCode() == KeyEvent.VK_KP_LEFT || e.getKeyCode() == KeyEvent.VK_LEFT) ){
 				if(!e.isShiftDown() && currNodes.get(currGr).size()>0){
-					currEdge.set(currGr, (currEdge.get(currGr)+1) % currEdges.get(currGr).size());
+					currEdge.set(currGr, (currEdge.get(currGr)-1+currEdges.get(currGr).size()) % currEdges.get(currGr).size());
 					graphs.get(currGr).getCurrNode().setSel(false);
 					graphs.get(currGr).setCurrNode(currNodes.get(currGr).get(currEdge.get(currGr)));
 					graphs.get(currGr).getCurrNode().setSel(true);
@@ -257,12 +261,12 @@ public class Display extends JFrame implements  KeyListener{
 							graphs.get(currGr-1).getCurrNode().setSel(false);
 							graphs.get(currGr-1).setCurrNode(graphs.get(currGr-1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 							currGr--;
-							currEdges.get(currGr).clear();
+							currEdges.set(currGr,null);
 							currNodes.get(currGr).clear();
 							graphs.get(currGr).getCurrNode().setSel(true);
 							currGraph = graphs.get(currGr);
 							String s = "Graph "+(currGr+1)+" of "+graphs.size();
-							s += " Current node "+graphs.get(currGr).getCurrNode().toString();
+							s += " Current "+graphs.get(currGr).getCurrNode().toString();
 							try {
 								doSpeak(s);
 							} catch (EngineException e1) {
@@ -314,7 +318,7 @@ public class Display extends JFrame implements  KeyListener{
 							currGr--;
 							currGraph = graphs.get(currGr);
 							String s = "Graph "+(currGr+1)+" of "+graphs.size();
-							s += " Current node "+graphs.get(currGr).getCurrNode().toString();
+							s += " Current "+graphs.get(currGr).getCurrNode().toString();
 							try {
 								doSpeak(s);
 							} catch (EngineException e1) {
@@ -347,7 +351,7 @@ public class Display extends JFrame implements  KeyListener{
 			}
 			if((e.getKeyCode() == KeyEvent.VK_KP_RIGHT || e.getKeyCode() == KeyEvent.VK_RIGHT) ){
 				if(!e.isShiftDown() && currNodes.get(currGr).size()>0){
-					currEdge.set(currGr, (currEdge.get(currGr)-1+currEdges.get(currGr).size()) % currEdges.get(currGr).size());
+					currEdge.set(currGr, (currEdge.get(currGr)+1) % currEdges.get(currGr).size());
 					graphs.get(currGr).getCurrNode().setSel(false);
 					graphs.get(currGr).setCurrNode(currNodes.get(currGr).get(currEdge.get(currGr)));
 					graphs.get(currGr).getCurrNode().setSel(true);
@@ -374,12 +378,12 @@ public class Display extends JFrame implements  KeyListener{
 							graphs.get(currGr+1).getCurrNode().setSel(false);
 							graphs.get(currGr+1).setCurrNode(graphs.get(currGr+1).map.get(graphs.get(currGr).getCurrNode().getLoc()));
 							currGr++;
-							currEdges.get(currGr).clear();
+							currEdges.set(currGr,null);
 							currNodes.get(currGr).clear();
 							graphs.get(currGr).getCurrNode().setSel(true);
 							currGraph = graphs.get(currGr);
 							String s = "Graph "+(currGr+1)+" of "+graphs.size();
-							s += " Current node "+graphs.get(currGr).getCurrNode().toString();
+							s += " Current "+graphs.get(currGr).getCurrNode().toString();
 							add(currGraph);
 							try {
 								doSpeak(s);
@@ -433,7 +437,7 @@ public class Display extends JFrame implements  KeyListener{
 
 							add(currGraph);
 							String s = "Graph "+(currGr+1)+" of "+graphs.size();
-							s += " Current node "+graphs.get(currGr).getCurrNode().toString();
+							s += " Current "+graphs.get(currGr).getCurrNode().toString();
 							try {
 								doSpeak(s);
 							} catch (EngineException e1) {
@@ -472,6 +476,7 @@ public class Display extends JFrame implements  KeyListener{
 					for(int i = 0; i< currEdges.get(currGr).size(); i++){
 						currNodes.get(currGr).add(currEdges.get(currGr).get(i).start);
 					}
+					from.set(currGr, graphs.get(currGr).getCurrNode());
 					graphs.get(currGr).getCurrNode().setSel(false);
 					currEdge.set(currGr, 0);
 					graphs.get(currGr).setCurrNode(currEdges.get(currGr).get(currEdge.get(currGr)).start);
@@ -518,6 +523,7 @@ public class Display extends JFrame implements  KeyListener{
 						temp.add(currEdges.get(currGr).get(i).end);
 					}
 					currEdge.set(currGr,0);
+					from.set(currGr, graphs.get(currGr).getCurrNode());
 					graphs.get(currGr).setCurrNode(currEdges.get(currGr).get(currEdge.get(currGr)).end);
 					graphs.get(currGr).getCurrNode().setSel(true);
 					String s = nodeInfo();
@@ -585,11 +591,35 @@ public class Display extends JFrame implements  KeyListener{
 					e1.printStackTrace();
 				}
 			}
-			if(e.getKeyCode() == KeyEvent.VK_D){
+			if(e.getKeyCode() == KeyEvent.VK_P){
+				if(from.get(currGr)!=null){
+					graphs.get(currGr).getCurrNode().setSel(false);
+					graphs.get(currGr).setCurrNode(from.get(currGr));
+					graphs.get(currGr).getCurrNode().setSel(true);
+					currNodes.get(currGr).clear();
+					currEdges.set(currGr,null);
+					try {
+						doSpeak(nodeInfo());
+					} catch (EngineException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					} catch (AudioException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IllegalArgumentException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						// Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+			if(e.getKeyCode() == KeyEvent.VK_M){
 				dynamic = !dynamic;
 				String s = "";
 				if(dynamic){
-					s = "Spatial Location Mode";
+					s = "Relative Location Mode";
 				}
 				else{
 					s = "Previous Location Mode";
@@ -684,6 +714,9 @@ public class Display extends JFrame implements  KeyListener{
 				graphs.get(currGr).getCurrNode().setSel(false);
 				graphs.get(currGr).setCurrNode(graphs.get(currGr).nodes.get((index+1)%graphs.get(currGr).nodes.size()));
 				graphs.get(currGr).getCurrNode().setSel(true);
+				from.set(currGr, null);
+				currNodes.get(currGr).clear();
+				currEdges.set(currGr,null);
 				try {
 					doSpeak(graphs.get(currGr).getCurrNode().toString());
 				} catch (EngineException e1) {
@@ -701,8 +734,9 @@ public class Display extends JFrame implements  KeyListener{
 				graphs.get(currGr).getCurrNode().setSel(false);
 				graphs.get(currGr).setCurrNode(graphs.get(currGr).nodes.get((index-1+graphs.get(currGr).nodes.size())%graphs.get(currGr).nodes.size()));
 				graphs.get(currGr).getCurrNode().setSel(true);
+				from.set(currGr, null);
 				currNodes.get(currGr).clear();
-				currEdges.get(currGr).clear();
+				currEdges.set(currGr,null);
 				try {
 					doSpeak(graphs.get(currGr).getCurrNode().toString());
 				} catch (EngineException e1) {
@@ -783,27 +817,28 @@ public class Display extends JFrame implements  KeyListener{
 		s = graphs.get(currGr).getCurrNode().toString();
 		if(currNodes.get(currGr).size()>0){
 			s += " Node " + (currEdge.get(currGr)+1) + " of " + currNodes.get(currGr).size() + ". ";
-		}
-		if(graphs.get(currGr).directed){
-			if(out.get(currGr)){
-				s += "connected via edge from " + currEdges.get(currGr).get(currEdge.get(currGr)).start.getName();
+
+			if(graphs.get(currGr).directed){
+				if(out.get(currGr)){
+					s += "Connected via edge from " + currEdges.get(currGr).get(currEdge.get(currGr)).start.getName();
+				}
+				else{
+					s += "Connected via edge to " + currEdges.get(currGr).get(currEdge.get(currGr)).end.getName();
+				}
 			}
 			else{
-				s += "connected via edge to " + currEdges.get(currGr).get(currEdge.get(currGr)).end.getName();
+				if(out.get(currGr)){
+					s += "Connected to " + currEdges.get(currGr).get(currEdge.get(currGr)).start.getName();
+				}
+				else{
+					s += "Connected to " + currEdges.get(currGr).get(currEdge.get(currGr)).end.getName();
+				}
 			}
-		}
-		else{
-			if(out.get(currGr)){
-				s += "connected to " + currEdges.get(currGr).get(currEdge.get(currGr)).start;
+			if(currEdges.get(currGr).get(currEdge.get(currGr)).getWeight() != 0){
+				s += " with edge weight:  " + currEdges.get(currGr).get(currEdge.get(currGr)).getWeight();
 			}
-			else{
-				s += "connected to " + currEdges.get(currGr).get(currEdge.get(currGr)).end;
-			}
+			s += ".";
 		}
-		if(currEdges.get(currGr).get(currEdge.get(currGr)).getWeight() != 0){
-			s += " with edge weight:  " + currEdges.get(currGr).get(currEdge.get(currGr)).getWeight();
-		}
-		s += ".";
 		return s;
 	}
 	/*

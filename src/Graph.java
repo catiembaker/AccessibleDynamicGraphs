@@ -605,247 +605,166 @@ public class Graph extends JPanel{
 	 */
 	public void load3a(){
 		directed = true;
-		Node n1 = new Node(600,150,"25",1, "twenty five");
+		Node n1 = new Node(600,100,"T",1, "Tom");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"62",2, "sixty two");
+		Node n2 = new Node(100,400,"A",2, "Alex");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"34",3, "thirty four");
+		Node n3 = new Node(400,400,"B",3, "Brad");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"86",4, "eighty six");
+		Node n4 = new Node(700,400,"J",4, "Jill");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"24",5, "twenty four");
-		nodes.add(n5);
-		map.put(5, n5);
-		Node n6 = new Node(750,750,"44",6, "forty four");
+//		Node n5 = new Node(1000,400,"K",5, "Karl");
+//		nodes.add(n5);
+//		map.put(5, n5);
+		Node n6 = new Node(25,700,"F",6, "Fred");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"88",7, "eighty eight");
+		Node n7 = new Node(100,700,"E",7, "Erin");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"1",8,"one");
-		nodes.add(n8);
-		map.put(8, n8);
-		Node n9 = new Node(225,1050,"23",9,"twenty three");
+//		Node n8 = new Node(200,700,"P",8,"Pam");
+//		nodes.add(n8);
+//		map.put(8, n8);
+		Node n9 = new Node(400,700,"C",9,"Chris");
 		nodes.add(n9);
 		map.put(9, n9);
-		Node n10 = new Node(375,1050,"84",10,"eighty four");
-		nodes.add(n10);
-		map.put(10, n10);
-		Node n11 = new Node(525,1050,"34",11,"thirty four");
-		nodes.add(n11);
-		map.put(11, n11);
-		Node n12 = new Node(675,1050,"90",12,"ninety");
-		nodes.add(n12);
-		map.put(12, n12);
-		Node n13 = new Node(825,1050,"36",13,"thirty six");
-		nodes.add(n13);
-		map.put(13, n13);
-
 		
-		Edge n1n2 = new Edge(n1,n2,600,187,325,450);
+		
+		Edge n1n2 = new Edge(n1,n2,600,125,125,400);
 		edges.add(n1n2);
 		n1.addOutEdge(n1n2);
 		n2.addInEdge(n1n2);
 		rep.put(n1n2, n1n2);
 		
-		Edge n1n3 = new Edge(n1,n3,650,187,925,450);
+		Edge n1n3 = new Edge(n1,n3,617,150,425,400);
 		edges.add(n1n3);
 		n1.addOutEdge(n1n3);
 		n3.addInEdge(n1n3);
 		rep.put(n1n3, n1n3);
 		
-		Edge n2n4 = new Edge(n2,n4,300,487,175,750);
-		edges.add(n2n4);
-		n2.addOutEdge(n2n4);
-		n4.addInEdge(n2n4);
-		rep.put(n2n4, n2n4);
+		Edge n1n4 = new Edge(n1,n4,635,150,725,400);
+		edges.add(n1n4);
+		n1.addOutEdge(n1n4);
+		n4.addInEdge(n1n4);
+		rep.put(n1n4, n1n4);
 		
-		Edge n2n5 = new Edge(n2,n5,350,487,475,750); 
-		edges.add(n2n5);
-		n2.addOutEdge(n2n5);
-		n5.addInEdge(n2n5);
-		rep.put(n2n5, n2n5);
+//		Edge n1n5 = new Edge(n1,n5,650,125,1025,400); 
+//		edges.add(n1n5);
+//		n1.addOutEdge(n1n5);
+//		n5.addInEdge(n1n5);
+//		rep.put(n1n5, n1n5);
 		
-		Edge n3n6 = new Edge(n3,n6,900,487,775,750);
-		edges.add(n3n6);
-		n3.addOutEdge(n3n6);
-		n6.addInEdge(n3n6);
-		rep.put(n3n6, n3n6);
+		Edge n2n6 = new Edge(n2,n6,115,445,50,700);
+		edges.add(n2n6);
+		n2.addOutEdge(n2n6);
+		n6.addInEdge(n2n6);
+		rep.put(n2n6, n2n6);
 		
-		Edge n3n7 = new Edge(n3,n7,950,487,1075,750);
-		edges.add(n3n7);
-		n3.addOutEdge(n3n7);
-		n7.addInEdge(n3n7);
-		rep.put(n3n7, n3n7);
+		Edge n2n7 = new Edge(n2,n7,125,450,125,700);
+		edges.add(n2n7);
+		n2.addOutEdge(n2n7);
+		n7.addInEdge(n2n7);
+		rep.put(n2n7, n2n7);
 		
-		Edge n4n8 = new Edge(n4,n8,150,787,100,1050);
-		edges.add(n4n8);
-		n4.addOutEdge(n4n8);
-		n8.addInEdge(n4n8);
-		rep.put(n4n8, n4n8);
+//		Edge n2n8 = new Edge(n2,n8,135,445,200,700);
+//		edges.add(n4n8);
+//		n2.addOutEdge(n4n8);
+//		n8.addInEdge(n4n8);
+//		rep.put(n4n8, n4n8);
 		
-		Edge n4n9 = new Edge(n4,n9,200,787,250,1050);
-		edges.add(n4n9);
-		n4.addOutEdge(n4n9);
-		n9.addInEdge(n4n9);
-		rep.put(n4n9, n4n9); 
-		
-		Edge n5n10 = new Edge(n5,n10,450,787,400,1050);
-		edges.add(n5n10);
-		n5.addOutEdge(n5n10);
-		n10.addInEdge(n5n10);
-		rep.put(n5n10, n5n10);
-		
-		Edge n5n11 = new Edge(n5,n11,500,787,550,1050);
-		edges.add(n5n11);
-		n5.addOutEdge(n5n11);
-		n11.addInEdge(n5n11);
-		rep.put(n5n11, n5n11);
-		
-		Edge n6n12 = new Edge(n6,n12,750,787,700,1050);
-		edges.add(n6n12);
-		n6.addOutEdge(n6n12);
-		n12.addInEdge(n6n12);
-		rep.put(n6n12, n6n12);
-		
-		Edge n6n13 = new Edge(n6,n13,800,787,850,1050);
-		edges.add(n6n13);
-		n6.addOutEdge(n6n13);
-		n13.addInEdge(n6n13);
-		rep.put(n6n13, n6n13);
-		
+		Edge n3n9 = new Edge(n3,n9,425,450,425,700);
+		edges.add(n3n9);
+		n3.addOutEdge(n3n9);
+		n9.addInEdge(n3n9);
+		rep.put(n3n9, n3n9); 
+				
 		for(int i = 0; i<nodes.size(); i++){
 			nodes.get(i).setDir(directed);
 		}
 	}
 	public void load3b(){
 		directed = true;
-		Node n1 = new Node(600,150,"25",1,"twenty five");
+		Node n1 = new Node(600,100,"T",1, "Tom");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"86",2,"eighty six");
+		Node n2 = new Node(100,400,"A",2, "Alex");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"34",3,"thirty four");
+		Node n3 = new Node(400,400,"B",3, "Brad");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"62",4,"sixty two");
+		Node n4 = new Node(700,400,"J",4, "Jill");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"24",5,"twenty four");
+		Node n5 = new Node(1000,400,"K",5, "Karl");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"7",6,"seven");
+		Node n6 = new Node(25,700,"F",6, "Fred");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"88",7,"eighty eight");
+		Node n7 = new Node(100,700,"E",7, "Erin");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"1",8,"one");
+		Node n8 = new Node(175,700,"P",8,"Pam");
 		nodes.add(n8);
 		map.put(8, n8);
-		Node n9 = new Node(225,1050,"23",9,"twenty three");
+		Node n9 = new Node(400,700,"C",9,"Chris");
 		nodes.add(n9);
 		map.put(9, n9);
-		Node n10 = new Node(375,1050,"84",10,"eighty four");
-		nodes.add(n10);
-		map.put(10, n10);
-		Node n11 = new Node(525,1050,"34",11,"thirty four");
-		nodes.add(n11);
-		map.put(11, n11);
-		Node n12 = new Node(675,1050,"90",12,"ninety");
-		nodes.add(n12);
-		map.put(12, n12);
-		Node n13 = new Node(825,1050,"36",13,"thirty six");
-		nodes.add(n13);
-		map.put(13, n13);
-		Node n14 = new Node(975,1050,"23",14,"twenty three");
-		nodes.add(n14);
-		map.put(14, n14);
-
 		
-		Edge n1n2 = new Edge(n1,n2,600,187,325,450);
+		
+		Edge n1n2 = new Edge(n1,n2,600,125,125,400);
 		edges.add(n1n2);
 		n1.addOutEdge(n1n2);
 		n2.addInEdge(n1n2);
 		rep.put(n1n2, n1n2);
 		
-		Edge n1n3 = new Edge(n1,n3,650,187,925,450);
+		Edge n1n3 = new Edge(n1,n3,617,150,425,400);
 		edges.add(n1n3);
 		n1.addOutEdge(n1n3);
 		n3.addInEdge(n1n3);
 		rep.put(n1n3, n1n3);
 		
-		Edge n2n4 = new Edge(n2,n4,300,487,175,750);
-		edges.add(n2n4);
-		n2.addOutEdge(n2n4);
-		n4.addInEdge(n2n4);
-		rep.put(n2n4, n2n4);
+		Edge n1n4 = new Edge(n1,n4,635,150,725,400);
+		edges.add(n1n4);
+		n1.addOutEdge(n1n4);
+		n4.addInEdge(n1n4);
+		rep.put(n1n4, n1n4);
 		
-		Edge n2n5 = new Edge(n2,n5,350,487,475,750); 
-		edges.add(n2n5);
-		n2.addOutEdge(n2n5);
-		n5.addInEdge(n2n5);
-		rep.put(n2n5, n2n5);
+		Edge n1n5 = new Edge(n1,n5,650,125,1025,400); 
+		edges.add(n1n5);
+		n1.addOutEdge(n1n5);
+		n5.addInEdge(n1n5);
+		rep.put(n1n5, n1n5);
 		
-		Edge n3n6 = new Edge(n3,n6,900,487,775,750);
-		edges.add(n3n6);
-		n3.addOutEdge(n3n6);
-		n6.addInEdge(n3n6);
-		rep.put(n3n6, n3n6);
+		Edge n2n6 = new Edge(n2,n6,115,445,50,700);
+		edges.add(n2n6);
+		n2.addOutEdge(n2n6);
+		n6.addInEdge(n2n6);
+		rep.put(n2n6, n2n6);
 		
-		Edge n3n7 = new Edge(n3,n7,950,487,1075,750);
-		edges.add(n3n7);
-		n3.addOutEdge(n3n7);
-		n7.addInEdge(n3n7);
-		rep.put(n3n7, n3n7);
+		Edge n2n7 = new Edge(n2,n7,125,450,125,700);
+		edges.add(n2n7);
+		n2.addOutEdge(n2n7);
+		n7.addInEdge(n2n7);
+		rep.put(n2n7, n2n7);
 		
-		Edge n4n8 = new Edge(n4,n8,150,787,100,1050);
-		edges.add(n4n8);
-		n4.addOutEdge(n4n8);
-		n8.addInEdge(n4n8);
-		rep.put(n4n8, n4n8);
+		Edge n2n8 = new Edge(n2,n8,135,445,200,700);
+		edges.add(n2n8);
+		n2.addOutEdge(n2n8);
+		n8.addInEdge(n2n8);
+		rep.put(n2n8, n2n8);
 		
-		Edge n4n9 = new Edge(n4,n9,200,787,250,1050);
-		edges.add(n4n9);
-		n4.addOutEdge(n4n9);
-		n9.addInEdge(n4n9);
-		rep.put(n4n9, n4n9); 
-		
-		Edge n5n10 = new Edge(n5,n10,450,787,400,1050);
-		edges.add(n5n10);
-		n5.addOutEdge(n5n10);
-		n10.addInEdge(n5n10);
-		rep.put(n5n10, n5n10);
-		
-		Edge n5n11 = new Edge(n5,n11,500,787,550,1050);
-		edges.add(n5n11);
-		n5.addOutEdge(n5n11);
-		n11.addInEdge(n5n11);
-		rep.put(n5n11, n5n11);
-		
-		Edge n6n12 = new Edge(n6,n12,750,787,700,1050);
-		edges.add(n6n12);
-		n6.addOutEdge(n6n12);
-		n12.addInEdge(n6n12);
-		rep.put(n6n12, n6n12);
-		
-		Edge n6n13 = new Edge(n6,n13,800,787,850,1050);
-		edges.add(n6n13);
-		n6.addOutEdge(n6n13);
-		n13.addInEdge(n6n13);
-		rep.put(n6n13, n6n13);
-		
-		Edge n7n14 = new Edge(n7,n14,1050,787,1000,1050);
-		edges.add(n7n14);
-		n7.addOutEdge(n7n14);
-		n14.addInEdge(n7n14);
-		rep.put(n7n14, n7n14);
-		
+		Edge n3n9 = new Edge(n3,n9,425,450,425,700);
+		edges.add(n3n9);
+		n3.addOutEdge(n3n9);
+		n9.addInEdge(n3n9);
+		rep.put(n3n9, n3n9); 
+				
 		for(int i = 0; i<nodes.size(); i++){
 			nodes.get(i).setDir(directed);
 		}
@@ -855,244 +774,168 @@ public class Graph extends JPanel{
 	 */
 	public void load4a(){
 		directed = true;
-		Node n1 = new Node(600,150,"47",1,"forty seven");
+		Node n1 = new Node(600,100,"J",1, "Jane");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"62",2, "sixty two");
+		Node n2 = new Node(100,400,"T",2, "Teresa");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"52",3,"fifty two");
+		Node n3 = new Node(400,400,"P",3, "Paul");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"16",4,"sixteen");
+		Node n4 = new Node(700,400,"B",4, "Blaine");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"72",5,"seventy two");
+		Node n5 = new Node(1000,400,"M",5, "Mike");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"18",6,"eighteen");
-		nodes.add(n6);
-		map.put(6, n6);
-		Node n7 = new Node(1050,750,"73",7,"seventy three");
+//		Node n6 = new Node(100,700,"D",6, "Dan");
+//		nodes.add(n6);
+//		map.put(6, n6);
+		Node n7 = new Node(300,700,"S",7, "Sara");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"78",8,"seventy eight");
-		nodes.add(n8);
-		map.put(8, n8);
-		Node n9 = new Node(225,1050,"73",9,"seventy three");
+//		Node n8 = new Node(450,700,"W",8,"Wendy");
+//		nodes.add(n8);
+//		map.put(8, n8);
+		Node n9 = new Node(700,700,"L",9,"Lily");
 		nodes.add(n9);
 		map.put(9, n9);
-		Node n12 = new Node(675,1050,"98",12,"ninety eight");
-		nodes.add(n12);
-		map.put(12, n12);
-		Node n13 = new Node(825,1050,"47",13,"forty seven");
-		nodes.add(n13);
-		map.put(13, n13);
-		Node n14 = new Node(975,1050,"5",14,"five");
-		nodes.add(n14);
-		map.put(14, n14);
-		Node n15 = new Node(1125,1050,"6",15,"six");
-		nodes.add(n15);
-		map.put(15, n15);
 		
-		Edge n1n2 = new Edge(n1,n2,600,187,325,450);
+		
+		Edge n1n2 = new Edge(n1,n2,600,125,125,400);
 		edges.add(n1n2);
 		n1.addOutEdge(n1n2);
 		n2.addInEdge(n1n2);
 		rep.put(n1n2, n1n2);
 		
-		Edge n1n3 = new Edge(n1,n3,650,187,925,450);
+		Edge n1n3 = new Edge(n1,n3,617,150,425,400);
 		edges.add(n1n3);
 		n1.addOutEdge(n1n3);
 		n3.addInEdge(n1n3);
 		rep.put(n1n3, n1n3);
 		
-		Edge n2n4 = new Edge(n2,n4,300,487,175,750);
-		edges.add(n2n4);
-		n2.addOutEdge(n2n4);
-		n4.addInEdge(n2n4);
-		rep.put(n2n4, n2n4);
+		Edge n1n4 = new Edge(n1,n4,635,150,725,400);
+		edges.add(n1n4);
+		n1.addOutEdge(n1n4);
+		n4.addInEdge(n1n4);
+		rep.put(n1n4, n1n4);
 		
-		Edge n2n5 = new Edge(n2,n5,350,487,475,750); 
-		edges.add(n2n5);
-		n2.addOutEdge(n2n5);
-		n5.addInEdge(n2n5);
-		rep.put(n2n5, n2n5);
+		Edge n1n5 = new Edge(n1,n5,650,125,1025,400); 
+		edges.add(n1n5);
+		n1.addOutEdge(n1n5);
+		n5.addInEdge(n1n5);
+		rep.put(n1n5, n1n5);
 		
-		Edge n3n6 = new Edge(n3,n6,900,487,775,750);
-		edges.add(n3n6);
-		n3.addOutEdge(n3n6);
-		n6.addInEdge(n3n6);
-		rep.put(n3n6, n3n6);
+	
+//		Edge n2n6 = new Edge(n2,n6,125,450,125,700);
+//		edges.add(n2n6);
+//		n2.addOutEdge(n2n6);
+//		n6.addInEdge(n2n6);
+//		rep.put(n2n6, n2n6);
 		
-		Edge n3n7 = new Edge(n3,n7,950,487,1075,750);
+		Edge n3n7 = new Edge(n3,n7,415,445,325,700);
 		edges.add(n3n7);
 		n3.addOutEdge(n3n7);
 		n7.addInEdge(n3n7);
 		rep.put(n3n7, n3n7);
 		
-		Edge n4n8 = new Edge(n4,n8,150,787,100,1050);
-		edges.add(n4n8);
-		n4.addOutEdge(n4n8);
-		n8.addInEdge(n4n8);
-		rep.put(n4n8, n4n8);
-		
-		Edge n4n9 = new Edge(n4,n9,200,787,250,1050);
+//		Edge n3n8 = new Edge(n3,n8,435,445,475,700);
+//		edges.add(n3n8);
+//		n3.addOutEdge(n3n8);
+//		n8.addInEdge(n3n8);
+//		rep.put(n3n8, n3n8);
+//		
+		Edge n4n9 = new Edge(n4,n9,725,450,725,700);
 		edges.add(n4n9);
 		n4.addOutEdge(n4n9);
 		n9.addInEdge(n4n9);
 		rep.put(n4n9, n4n9); 
-		
-		Edge n6n12 = new Edge(n6,n12,750,787,700,1050);
-		edges.add(n6n12);
-		n6.addOutEdge(n6n12);
-		n12.addInEdge(n6n12);
-		rep.put(n6n12, n6n12);
-		
-		Edge n6n13 = new Edge(n6,n13,800,787,850,1050);
-		edges.add(n6n13);
-		n6.addOutEdge(n6n13);
-		n13.addInEdge(n6n13);
-		rep.put(n6n13, n6n13);
-		
-		Edge n7n14 = new Edge(n7,n14,1050,787,1000,1050);
-		edges.add(n7n14);
-		n7.addOutEdge(n7n14);
-		n14.addInEdge(n7n14);
-		rep.put(n7n14, n7n14);
-		
-		Edge n7n15 = new Edge(n7,n15,1100,787,1150,1050);
-		edges.add(n7n15);
-		n7.addOutEdge(n7n15);
-		n15.addInEdge(n7n15);
-		rep.put(n7n15, n7n15);
-		
+				
 		for(int i = 0; i<nodes.size(); i++){
 			nodes.get(i).setDir(directed);
 		}
 	}
 	public void load4b(){
 		directed = true;
-		Node n1 = new Node(600,150,"52",1,"fifty two");
+		Node n1 = new Node(600,100,"J",1, "Jane");
 		nodes.add(n1);
 		map.put(1, n1);
-		Node n2 = new Node(300,450,"62",2, "sixty two");
+		Node n2 = new Node(100,400,"T",2, "Teresa");
 		nodes.add(n2);
 		map.put(2, n2);
-		Node n3 = new Node(900,450,"47",3,"forty seven");
+		Node n3 = new Node(400,400,"P",3, "Paul");
 		nodes.add(n3);
 		map.put(3, n3);
-		Node n4 = new Node(150,750,"16",4,"sixteen");
+		Node n4 = new Node(700,400,"B",4, "Blaine");
 		nodes.add(n4);
 		map.put(4, n4);
-		Node n5 = new Node(450,750,"72",5,"seventy two");
+		Node n5 = new Node(1000,400,"M",5, "Mike");
 		nodes.add(n5);
 		map.put(5, n5);
-		Node n6 = new Node(750,750,"18",6,"eighteen");
+		Node n6 = new Node(100,700,"D",6, "Dan");
 		nodes.add(n6);
 		map.put(6, n6);
-		Node n7 = new Node(1050,750,"73",7,"seventy three");
+		Node n7 = new Node(300,700,"S",7, "Sara");
 		nodes.add(n7);
 		map.put(7, n7);
-		Node n8 = new Node(75,1050,"19",8,"nineteen");
+		Node n8 = new Node(450,700,"W",8,"Wendy");
 		nodes.add(n8);
 		map.put(8, n8);
-		Node n9 = new Node(225,1050,"73",9,"seventy three");
+		Node n9 = new Node(700,700,"L",9,"Lily");
 		nodes.add(n9);
 		map.put(9, n9);
-		Node n10 = new Node(375,1050,"29",10,"twenty nine");
-		nodes.add(n10);
-		map.put(10, n10);
-		Node n12 = new Node(675,1050,"98",12,"ninety eight");
-		nodes.add(n12);
-		map.put(12, n12);
-		Node n13 = new Node(825,1050,"47",13,"forty seven");
-		nodes.add(n13);
-		map.put(13, n13);
-		Node n14 = new Node(975,1050,"5",14,"five");
-		nodes.add(n14);
-		map.put(14, n14);
-		Node n15 = new Node(1125,1050,"6",15,"six");
-		nodes.add(n15);
-		map.put(15, n15);
 		
-		Edge n1n2 = new Edge(n1,n2,600,187,325,450);
+		
+		Edge n1n2 = new Edge(n1,n2,600,125,125,400);
 		edges.add(n1n2);
 		n1.addOutEdge(n1n2);
 		n2.addInEdge(n1n2);
 		rep.put(n1n2, n1n2);
 		
-		Edge n1n3 = new Edge(n1,n3,650,187,925,450);
+		Edge n1n3 = new Edge(n1,n3,617,150,425,400);
 		edges.add(n1n3);
 		n1.addOutEdge(n1n3);
 		n3.addInEdge(n1n3);
 		rep.put(n1n3, n1n3);
 		
-		Edge n2n4 = new Edge(n2,n4,300,487,175,750);
-		edges.add(n2n4);
-		n2.addOutEdge(n2n4);
-		n4.addInEdge(n2n4);
-		rep.put(n2n4, n2n4);
+		Edge n1n4 = new Edge(n1,n4,635,150,725,400);
+		edges.add(n1n4);
+		n1.addOutEdge(n1n4);
+		n4.addInEdge(n1n4);
+		rep.put(n1n4, n1n4);
 		
-		Edge n2n5 = new Edge(n2,n5,350,487,475,750); 
-		edges.add(n2n5);
-		n2.addOutEdge(n2n5);
-		n5.addInEdge(n2n5);
-		rep.put(n2n5, n2n5);
+		Edge n1n5 = new Edge(n1,n5,650,125,1025,400); 
+		edges.add(n1n5);
+		n1.addOutEdge(n1n5);
+		n5.addInEdge(n1n5);
+		rep.put(n1n5, n1n5);
 		
-		Edge n3n6 = new Edge(n3,n6,900,487,775,750);
-		edges.add(n3n6);
-		n3.addOutEdge(n3n6);
-		n6.addInEdge(n3n6);
-		rep.put(n3n6, n3n6);
+	
+		Edge n2n6 = new Edge(n2,n6,125,450,125,700);
+		edges.add(n2n6);
+		n2.addOutEdge(n2n6);
+		n6.addInEdge(n2n6);
+		rep.put(n2n6, n2n6);
 		
-		Edge n3n7 = new Edge(n3,n7,950,487,1075,750);
+		Edge n3n7 = new Edge(n3,n7,415,445,325,700);
 		edges.add(n3n7);
 		n3.addOutEdge(n3n7);
 		n7.addInEdge(n3n7);
 		rep.put(n3n7, n3n7);
 		
-		Edge n4n8 = new Edge(n4,n8,150,787,100,1050);
-		edges.add(n4n8);
-		n4.addOutEdge(n4n8);
-		n8.addInEdge(n4n8);
-		rep.put(n4n8, n4n8);
+		Edge n3n8 = new Edge(n3,n8,435,445,475,700);
+		edges.add(n3n8);
+		n3.addOutEdge(n3n8);
+		n8.addInEdge(n3n8);
+		rep.put(n3n8, n3n8);
 		
-		Edge n4n9 = new Edge(n4,n9,200,787,250,1050);
+		Edge n4n9 = new Edge(n4,n9,725,450,725,700);
 		edges.add(n4n9);
 		n4.addOutEdge(n4n9);
 		n9.addInEdge(n4n9);
 		rep.put(n4n9, n4n9); 
-		
-		Edge n5n10 = new Edge(n5,n10,450,787,400,1050);
-		edges.add(n5n10);
-		n5.addOutEdge(n5n10);
-		n10.addInEdge(n5n10);
-		rep.put(n5n10, n5n10);
-			
-		Edge n6n12 = new Edge(n6,n12,750,787,700,1050);
-		edges.add(n6n12);
-		n6.addOutEdge(n6n12);
-		n12.addInEdge(n6n12);
-		rep.put(n6n12, n6n12);
-		
-		Edge n6n13 = new Edge(n6,n13,800,787,850,1050);
-		edges.add(n6n13);
-		n6.addOutEdge(n6n13);
-		n13.addInEdge(n6n13);
-		rep.put(n6n13, n6n13);
-		
-		Edge n7n14 = new Edge(n7,n14,1050,787,1000,1050);
-		edges.add(n7n14);
-		n7.addOutEdge(n7n14);
-		n14.addInEdge(n7n14);
-		rep.put(n7n14, n7n14);
-		
-		Edge n7n15 = new Edge(n7,n15,1100,787,1150,1050);
-		edges.add(n7n15);
-		n7.addOutEdge(n7n15);
-		n15.addInEdge(n7n15);
-		rep.put(n7n15, n7n15);
+				
 		for(int i = 0; i<nodes.size(); i++){
 			nodes.get(i).setDir(directed);
 		}
